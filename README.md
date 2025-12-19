@@ -1,11 +1,104 @@
-<!DOCTYPE html>
+<Lucky>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Lucky Draw • Firebase Free</title>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<title>Lucky Draw • Firebase Ready</title>
+<script type="module">
+  // Firebase import (client-side)
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+  // 🔥 Firebase Config (Already integrated)
+  const firebaseConfig = {
+    apiKey: "AIzaSyA0_NaAYDKQuoEO58Od7LhZ5enZA-GIP9M",
+    authDomain: "lucky-draw-12ebd.firebaseapp.com",
+    projectId: "lucky-draw-12ebd",
+    storageBucket: "lucky-draw-12ebd.firebasestorage.app",
+    messagingSenderId: "695988718336",
+    appId: "1:695988718336:web:0d14e5c69905e8772481e5"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  let currentUser = null;
+
+  async function loginUser() {
+    const username = document.getElementById('username').value.trim();
+    if(!username){ alert('Enter username'); return; }
+    currentUser = username;
+    const userRef = doc(db, "users", username);
+    const userSnap = await getDoc(userRef);
+    if(!userSnap.exists()){
+      await setDoc(userRef, { coins: 1250, draws: 0, rewards: 0 });
+    }
+    document.getElementById('login-page').style.display='none';
+    document.getElementById('dashboard-page').style.display='block';
+    loadUserData();
+  }
+
+  async function loadUserData(){
+    const userRef = doc(db, "users", currentUser);
+    const userSnap = await getDoc(userRef);
+    const data = userSnap.data();
+    document.getElementById('user-coins').innerText = data.coins;
+    document.getElementById('draws-played').innerText = data.draws;
+    document.getElementById('rewards-won').innerText = data.rewards;
+  }
+
+  async function spinWheel(){
+    const reward = Math.floor(Math.random()*500+50);
+    alert('You won '+reward+' coins!');
+    const userRef = doc(db, "users", currentUser);
+    await updateDoc(userRef, {
+      coins: increment(reward),
+      draws: increment(1)
+    });
+    loadUserData();
+  }
+
+  async function buyChances(){
+    const buy = parseInt(document.getElementById('buy-chances').value);
+    if(isNaN(buy)||buy<=0){ alert('Enter valid number'); return; }
+    const userRef = doc(db, "users", currentUser);
+    const userSnap = await getDoc(userRef);
+    const coinsCost = buy*100;
+    if(userSnap.data().coins < coinsCost){ alert('Not enough coins'); return; }
+    await updateDoc(userRef, { coins: increment(-coinsCost) });
+    loadUserData();
+  }
+
+  async function depositCoins(){
+    const dep = parseInt(document.getElementById('deposit-amount').value);
+    if(isNaN(dep)||dep<=0){ alert('Enter valid amount'); return; }
+    const userRef = doc(db, "users", currentUser);
+    await updateDoc(userRef, { coins: increment(dep) });
+    loadUserData();
+  }
+
+  async function withdrawCoins(){
+    const wit = parseInt(document.getElementById('withdraw-amount').value);
+    if(isNaN(wit)||wit<=0){ alert('Enter valid amount'); return; }
+    const userRef = doc(db, "users", currentUser);
+    const userSnap = await getDoc(userRef);
+    if(userSnap.data().coins < wit){ alert('Not enough coins'); return; }
+    await updateDoc(userRef, { coins: increment(-wit) });
+    loadUserData();
+  }
+
+  function showDashboard(){
+    document.getElementById('login-page').style.display='none';
+    document.getElementById('dashboard-page').style.display='block';
+    loadUserData();
+  }
+
+  function scrollToDraw(){
+    document.getElementById('spin-wheel').scrollIntoView({behavior:'smooth'});
+  }
+</script>
+
 <style>
 body { margin:0; font-family:Arial,sans-serif; background:linear-gradient(135deg,#0f2027,#203a43,#2c5364); color:#fff; }
 header { padding:20px; text-align:center; background:rgba(0,0,0,0.4); }
@@ -22,14 +115,13 @@ header h1{margin:0;font-size:28px;}
 .mobile-nav{position:fixed; bottom:0; left:0; right:0; background:rgba(0,0,0,0.7); display:flex; justify-content:space-around; padding:10px 0;}
 .mobile-nav a{color:#00c6ff; text-decoration:none; font-size:14px; cursor:pointer;}
 </style>
-</head>
+
 <body>
 
 <header>
-<h1>Lucky Draw • Firebase Free</h1>
+<h1>Lucky Draw • Firebase Ready</h1>
 </header>
 
-<!-- Login -->
 <div class="container" id="login-page">
 <div class="card">
 <h2>Login / Signup</h2>
@@ -38,7 +130,6 @@ header h1{margin:0;font-size:28px;}
 </div>
 </div>
 
-<!-- Dashboard -->
 <div class="container" id="dashboard-page" style="display:none;">
 <div class="card">
 <h2>User Dashboard</h2>
@@ -74,7 +165,7 @@ header h1{margin:0;font-size:28px;}
 </div>
 </div>
 
-<footer>© 2025 Lucky Draw | Firebase Free Tier</footer>
+<footer>© 2025 Lucky Draw | Firebase Ready</footer>
 
 <div class="mobile-nav">
 <a onclick="showDashboard()">Home</a>
@@ -82,102 +173,6 @@ header h1{margin:0;font-size:28px;}
 <a>Wallet</a>
 <a>Profile</a>
 </div>
-
-<script>
-// Firebase config - replace with your project config
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-let currentUser = null;
-
-function loginUser() {
-  const username = document.getElementById('username').value.trim();
-  if(!username){ alert('Enter username'); return; }
-  currentUser = username;
-  const userRef = db.collection('users').doc(username);
-  userRef.get().then(doc=>{
-    if(!doc.exists){
-      userRef.set({ coins:1250, draws:0, rewards:0 });
-    }
-    document.getElementById('login-page').style.display='none';
-    document.getElementById('dashboard-page').style.display='block';
-    loadUserData();
-  });
-}
-
-function loadUserData(){
-  const userRef = db.collection('users').doc(currentUser);
-  userRef.get().then(doc=>{
-    const data = doc.data();
-    document.getElementById('user-coins').innerText = data.coins;
-    document.getElementById('draws-played').innerText = data.draws;
-    document.getElementById('rewards-won').innerText = data.rewards;
-  });
-}
-
-function spinWheel(){
-  const reward = Math.floor(Math.random()*500+50);
-  alert('You won '+reward+' coins!');
-  const userRef = db.collection('users').doc(currentUser);
-  db.runTransaction(transaction=>{
-    return transaction.get(userRef).then(doc=>{
-      const newCoins = doc.data().coins + reward;
-      const newDraws = doc.data().draws +1;
-      transaction.update(userRef,{coins:newCoins, draws:newDraws});
-    });
-  }).then(()=>loadUserData());
-}
-
-function buyChances(){
-  const buy = parseInt(document.getElementById('buy-chances').value);
-  if(isNaN(buy)||buy<=0){ alert('Enter valid number'); return; }
-  const userRef = db.collection('users').doc(currentUser);
-  db.runTransaction(transaction=>{
-    return transaction.get(userRef).then(doc=>{
-      const coinsCost = buy*100;
-      if(doc.data().coins<coinsCost){ alert('Not enough coins'); return; }
-      transaction.update(userRef,{coins:doc.data().coins-coinsCost});
-    });
-  }).then(()=>loadUserData());
-}
-
-function depositCoins(){
-  const dep = parseInt(document.getElementById('deposit-amount').value);
-  if(isNaN(dep)||dep<=0){ alert('Enter valid amount'); return; }
-  const userRef = db.collection('users').doc(currentUser);
-  db.update(userRef,{coins:firebase.firestore.FieldValue.increment(dep)}).then(()=>loadUserData());
-}
-
-function withdrawCoins(){
-  const wit = parseInt(document.getElementById('withdraw-amount').value);
-  if(isNaN(wit)||wit<=0){ alert('Enter valid amount'); return; }
-  const userRef = db.collection('users').doc(currentUser);
-  db.runTransaction(transaction=>{
-    return transaction.get(userRef).then(doc=>{
-      if(doc.data().coins<wit){ alert('Not enough coins'); return; }
-      transaction.update(userRef,{coins:doc.data().coins-wit});
-    });
-  }).then(()=>loadUserData());
-}
-
-function showDashboard(){
-  document.getElementById('login-page').style.display='none';
-  document.getElementById('dashboard-page').style.display='block';
-  loadUserData();
-}
-
-function scrollToDraw(){
-  document.getElementById('spin-wheel').scrollIntoView({behavior:'smooth'});
-}
-</script>
 
 </body>
 </html>
