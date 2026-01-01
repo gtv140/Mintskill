@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Lucky Draw - Casino Style Aviator Crash</title>
+<title>Lucky Draw - Live Casino Crash</title>
 <style>
 body {margin:0; padding:0; overflow:hidden; background:#0a0a0a; font-family:Arial;}
 #gameCanvas {display:block;}
 .title{
   position:absolute; top:10px; left:50%; transform:translateX(-50%);
-  font-size:36px; font-weight:bold; color:#ff00ff; text-shadow:0 0 20px #ff00ff;
+  font-size:36px; font-weight:bold; color:#ff00ff; text-shadow:0 0 30px #ff00ff;
   z-index:200;
 }
-.ui {position:absolute; top:70px; left:50%; transform:translateX(-50%); text-align:center; z-index:100; color:#0fffe0; text-shadow:0 0 10px #0fffe0;}
+.ui {position:absolute; top:70px; left:50%; transform:translateX(-50%); text-align:center; z-index:100; color:#0fffe0; text-shadow:0 0 15px #0fffe0;}
 button {padding:10px 14px; margin:3px; border:none; border-radius:6px; font-size:14px; cursor:pointer; font-weight:bold; color:#0a0a0a;}
 .start{background:#00ff99; box-shadow:0 0 10px #00ff99;}
 .cash{background:#ff00ff; box-shadow:0 0 10px #ff00ff;}
 .status {margin:5px; font-size:18px; font-weight:bold;}
-.mult {font-size:22px; margin:5px; text-shadow:0 0 15px #0fffec;}
+.mult {font-size:22px; margin:5px; text-shadow:0 0 20px #0fffec;}
 .coins {font-size:22px; margin:5px;}
 .betControl {margin:5px;}
 .history, .botBox {position:absolute; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.5); padding:10px; border-radius:10px; font-size:14px; color:#fff; text-shadow:0 0 5px #0fffe0; max-height:200px; overflow-y:auto;}
@@ -43,10 +43,9 @@ button {padding:10px 14px; margin:3px; border:none; border-radius:6px; font-size
 <canvas id="gameCanvas"></canvas>
 
 <script>
-// -------- Variables --------
+// Variables
 let coins=100;
 function updateCoins(){document.getElementById('coins').innerText=coins;}
-
 let canvas=document.getElementById('gameCanvas');
 let ctx=canvas.getContext('2d');
 canvas.width=window.innerWidth; canvas.height=window.innerHeight;
@@ -59,18 +58,18 @@ let graphData=[];
 let particles=[];
 let clouds=[];
 let history=[];
-let userBet = {amount:0, multiplier:0, cashedOut:false, won:0};
-let botUsers = [];
+let userBet={amount:0,multiplier:0,cashedOut:false,won:0};
+let botUsers=[];
 
 // Sounds
-let crashSound = new Audio('https://freesound.org/data/previews/341/341700_5260870-lq.mp3');
-let coinSound = new Audio('https://freesound.org/data/previews/341/341695_5260870-lq.mp3');
-let startSound = new Audio('https://freesound.org/data/previews/501/501469_5121236-lq.mp3');
+let crashSound=new Audio('https://freesound.org/data/previews/341/341700_5260870-lq.mp3');
+let coinSound=new Audio('https://freesound.org/data/previews/341/341695_5260870-lq.mp3');
+let startSound=new Audio('https://freesound.org/data/previews/501/501469_5121236-lq.mp3');
 
 // Clouds
 for(let i=0;i<20;i++){clouds.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height/2, size:Math.random()*50+20});}
 
-// Helper
+// Helpers
 function randomName(){const names=['NeoPilot','SkyFury','JetAce','StarFly','CloudRider','TurboJet','AeroMax','WindSeeker','AirBlaze','StormWing']; return names[Math.floor(Math.random()*names.length)]+Math.floor(Math.random()*999);}
 function randomBet(){return Math.floor(Math.random()*486)+15;} // 15-500
 
@@ -91,7 +90,7 @@ function drawScene(){
   
   // Crash line
   if(!running && multiplier>0){
-    let crashY = canvas.height-50 - crashAt*50;
+    let crashY=canvas.height-50-crashAt*50;
     ctx.strokeStyle="#ff00ff"; ctx.lineWidth=3; ctx.shadowColor="#ff00ff"; ctx.shadowBlur=15;
     ctx.beginPath(); ctx.moveTo(0,crashY); ctx.lineTo(canvas.width,crashY); ctx.stroke(); ctx.shadowBlur=0;
   }
@@ -100,7 +99,7 @@ function drawScene(){
   plane.trail.forEach(p=>{ctx.fillStyle="rgba(0,255,255,0.4)"; ctx.beginPath(); ctx.arc(p.x,p.y,10*plane.scale,0,Math.PI*2); ctx.fill();});
   
   // Plane with zoom
-  ctx.save(); ctx.translate(plane.x, plane.y); ctx.scale(plane.scale,plane.scale); ctx.rotate(plane.angle); ctx.font=plane.size+"px Arial"; ctx.shadowColor="#00ffff"; ctx.shadowBlur=15; ctx.fillText("✈️",-plane.size/2,0); ctx.restore(); ctx.shadowBlur=0;
+  ctx.save(); ctx.translate(plane.x, plane.y); ctx.scale(plane.scale,plane.scale); ctx.rotate(plane.angle); ctx.font=plane.size+"px Arial"; ctx.shadowColor="#00ffff"; ctx.shadowBlur=20; ctx.fillText("✈️",-plane.size/2,0); ctx.restore(); ctx.shadowBlur=0;
   
   // Bot markers
   let scaleX=5;
@@ -114,8 +113,10 @@ function drawScene(){
 }
 
 // Particles
-function createParticles(x,y){for(let i=0;i<100;i++){particles.push({x:x,y:y,vx:(Math.random()-0.5)*6,vy:(Math.random()-0.5)*6,size:Math.random()*5+2,alpha:1});}}
+function createParticles(x,y){for(let i=0;i<150;i++){particles.push({x:x,y:y,vx:(Math.random()-0.5)*8,vy:(Math.random()-0.5)*8,size:Math.random()*5+2,alpha:1});}}
 function updateParticles(){for(let i=particles.length-1;i>=0;i--){let p=particles[i]; p.x+=p.vx; p.y+=p.vy; p.alpha-=0.02; if(p.alpha<=0)particles.splice(i,1);}}
+
+// Bot Box
 function updateBotBox(){let box=document.getElementById('botBox'); let html="Bots Info:<br>"; botUsers.forEach(b=>{html+=b.name+" | Bet: "+b.amount+" | Auto: "+b.multiplier+"x<br>";}); box.innerHTML=html;}
 
 // Start Game
@@ -139,8 +140,9 @@ function startGame(){
     multiplier+=0.02*(1+multiplier/10);
     document.getElementById('multiplier').innerText=multiplier.toFixed(2)+'x';
     
+    // Plane animation
     plane.angle=Math.sin(multiplier/2)/5;
-    plane.scale=1+multiplier/10; // zoom effect
+    plane.scale=1+multiplier/10; 
     let planeY=canvas.height-100-multiplier*50; plane.trail.push({x:plane.x,y:plane.y}); if(plane.trail.length>20)plane.trail.shift(); plane.y=planeY;
     clouds.forEach(c=>{c.x-=0.3;if(c.x<0)c.x=canvas.width+Math.random()*100;});
     graphData.push(multiplier);
@@ -153,7 +155,13 @@ function startGame(){
     
     drawScene(); updateParticles();
     
-    if(multiplier>=crashAt){running=false; document.getElementById('status').innerHTML="<span style='color:#ff33ff; font-size:18px;'>CRASH 💥 @ "+crashAt+"x</span>"; if(!userBet.cashedOut){userBet.won=0; history.push("User LOST @ crash "+crashAt+"x");} botUsers.forEach(b=>{if(!b.cashedOut)b.won=0;}); crashSound.play(); createParticles(plane.x, plane.y); updateHistory();}
+    if(multiplier>=crashAt){
+      running=false; 
+      document.getElementById('status').innerHTML="<span style='color:#ff33ff; font-size:18px;'>CRASH 💥 @ "+crashAt+"x</span>"; 
+      if(!userBet.cashedOut){userBet.won=0; history.push("User LOST @ crash "+crashAt+"x");} 
+      botUsers.forEach(b=>{if(!b.cashedOut)b.won=0;}); 
+      crashSound.play(); createParticles(plane.x, plane.y); updateHistory();
+    }
     
     updateBotBox();
   },50);
