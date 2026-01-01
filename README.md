@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Aviator Crash Game Advanced Demo</title>
+<title>Aviator Crash Game Ultimate Demo</title>
 <style>
 body {margin:0; padding:0; overflow:hidden; background:#0a0a0a; font-family:Arial;}
 #gameCanvas {display:block;}
@@ -53,7 +53,7 @@ canvas.width=window.innerWidth; canvas.height=window.innerHeight;
 let running=false;
 let multiplier=1.00;
 let crashAt=0;
-let plane={x:canvas.width/2, y:canvas.height-100, size:60, trail:[]};
+let plane={x:canvas.width/2, y:canvas.height-100, size:60, trail:[], angle:0};
 let graphData=[];
 let particles=[];
 let clouds=[];
@@ -107,9 +107,13 @@ function drawScene(){
     ctx.fill();
   });
   
-  // Plane
+  // Plane with tilt
+  ctx.save();
+  ctx.translate(plane.x, plane.y);
+  ctx.rotate(plane.angle);
   ctx.font=plane.size+"px Arial";
-  ctx.fillText("✈️", plane.x-plane.size/2, plane.y);
+  ctx.fillText("✈️",-plane.size/2,0);
+  ctx.restore();
   
   // Bet markers
   let scaleX = 5;
@@ -121,7 +125,6 @@ function drawScene(){
     ctx.arc(x,y,8,0,Math.PI*2);
     ctx.fill();
   }
-  
   botUsers.forEach(b=>{
     if(!b.cashedOut){
       let x = graphData.length*scaleX;
@@ -145,7 +148,7 @@ function drawScene(){
 
 // -------- Particles --------
 function createParticles(x,y){
-  for(let i=0;i<60;i++){
+  for(let i=0;i<80;i++){
     particles.push({
       x:x, y:y,
       vx:(Math.random()-0.5)*6,
@@ -167,19 +170,18 @@ function updateParticles(){
 // -------- Start Game --------
 function startGame(){
   if(running) return;
-  // Read user bet
   let amt = parseInt(document.getElementById('betAmount').value);
   let mul = parseFloat(document.getElementById('betMultiplier').value);
   if(amt>coins){alert("Not enough coins"); return;}
-  userBet={amount:amt, multiplier:mul, cashedOut:false, won:0};
+  userBet={amount:amt,multiplier:mul,cashedOut:false,won:0};
   coins-=amt; updateCoins();
   
   // Bots
-  botUsers = [];
+  botUsers=[];
   for(let i=0;i<3;i++){
-    let bMul = (Math.random()*4+1).toFixed(2);
-    let bAmt = Math.floor(Math.random()*(100)+10);
-    botUsers.push({amount:bAmt, multiplier:bMul, cashedOut:false, won:0});
+    let bMul=(Math.random()*4+1).toFixed(2);
+    let bAmt=Math.floor(Math.random()*(100)+10);
+    botUsers.push({amount:bAmt,multiplier:bMul,cashedOut:false,won:0});
   }
   
   running=true;
@@ -188,6 +190,7 @@ function startGame(){
   plane.x=canvas.width/2;
   plane.y=canvas.height-100;
   plane.trail=[];
+  plane.angle=0;
   graphData=[];
   particles=[];
   document.getElementById('status').innerText="";
@@ -197,8 +200,9 @@ function startGame(){
     multiplier+=0.02*(1+multiplier/10);
     document.getElementById('multiplier').innerText=multiplier.toFixed(2)+'x';
     
-    // Plane movement
-    let planeY = canvas.height-100 - multiplier*50;
+    // Plane tilt & trail
+    plane.angle=Math.sin(multiplier/2)/5;
+    let planeY=canvas.height-100-multiplier*50;
     plane.trail.push({x:plane.x,y:plane.y});
     if(plane.trail.length>20) plane.trail.shift();
     plane.y=planeY;
@@ -211,16 +215,12 @@ function startGame(){
     // Bot cash out
     botUsers.forEach(b=>{
       if(!b.cashedOut && multiplier>=b.multiplier){
-        b.cashedOut=true;
-        b.won=Math.floor(b.amount*b.multiplier);
+        b.cashedOut=true; b.won=Math.floor(b.amount*b.multiplier);
         coins+=b.won;
       }
     });
     
-    drawScene();
-    updateParticles();
-    
-    // Check user cash out auto
+    // User auto cash out
     if(userBet.amount>0 && !userBet.cashedOut && multiplier>=userBet.multiplier){
       userBet.cashedOut=true;
       userBet.won=Math.floor(userBet.amount*userBet.multiplier);
@@ -230,12 +230,15 @@ function startGame(){
       updateHistory();
     }
     
+    drawScene();
+    updateParticles();
+    
     // Crash
     if(multiplier>=crashAt){
       running=false;
       document.getElementById('status').innerHTML="<span style='color:#ff6b6b; font-size:18px;'>CRASH 💥 @ "+crashAt+"x</span>";
       if(!userBet.cashedOut){userBet.won=0; history.push("User LOST @ crash "+crashAt+"x");}
-      botUsers.forEach(b=>{if(!b.cashedOut){b.won=0;}});
+      botUsers.forEach(b=>{if(!b.cashedOut)b.won=0;});
       crashSound.play();
       createParticles(plane.x, plane.y);
       updateHistory();
@@ -256,7 +259,7 @@ function cashOut(){
 // -------- History --------
 function updateHistory(){
   let histEl=document.getElementById('history');
-  let lines = history.slice(-10).reverse();
+  let lines=history.slice(-10).reverse();
   botUsers.forEach((b,i)=>{if(b.cashedOut)lines.push("Bot"+(i+1)+" cashed out @ "+b.multiplier+"x");});
   histEl.innerHTML="History:<br>"+lines.join("<br>");
 }
