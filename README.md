@@ -2,24 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Aviator Crash Game Ultimate Demo with Sounds</title>
+<title>Neon Aviator Crash Game Demo</title>
 <style>
 body {margin:0; padding:0; overflow:hidden; background:#0a0a0a; font-family:Arial;}
 #gameCanvas {display:block;}
 .ui {
-  position:absolute; top:10px; left:50%; transform:translateX(-50%); text-align:center; z-index:100; color:#fff;
+  position:absolute; top:10px; left:50%; transform:translateX(-50%); text-align:center; z-index:100; color:#0fffec;
+  text-shadow:0 0 10px #0fffec;
 }
-button {padding:10px 14px; margin:3px; border:none; border-radius:6px; font-size:14px; cursor:pointer;}
-.start{background:#2ecc71;}
-.cash{background:#f1c40f;}
-.status {margin:5px; font-size:16px;}
-.mult {font-size:20px; margin:5px;}
-.coins {font-size:20px; margin:5px;}
+button {padding:10px 14px; margin:3px; border:none; border-radius:6px; font-size:14px; cursor:pointer; color:#0a0a0a; font-weight:bold;}
+.start{background:#00ff99; box-shadow:0 0 10px #00ff99;}
+.cash{background:#ff00ff; box-shadow:0 0 10px #ff00ff;}
+.status {margin:5px; font-size:18px; font-weight:bold;}
+.mult {font-size:22px; margin:5px; text-shadow:0 0 15px #0fffec;}
+.coins {font-size:22px; margin:5px;}
 .betControl {margin:5px;}
 .history {
-  position:absolute; top:150px; left:50%; transform:translateX(-50%);
-  background:rgba(0,0,0,0.5); padding:10px; border-radius:6px; max-height:180px; overflow-y:auto;
-  font-size:14px; color:#fff;
+  position:absolute; top:180px; left:50%; transform:translateX(-50%);
+  background:rgba(0,0,0,0.5); padding:10px; border-radius:10px; max-height:220px; overflow-y:auto;
+  font-size:14px; color:#fff; text-shadow:0 0 5px #0fffec;
 }
 </style>
 </head>
@@ -27,7 +28,7 @@ button {padding:10px 14px; margin:3px; border:none; border-radius:6px; font-size
 
 <div class="ui">
   <h2>Coins: <span id="coins">100</span></h2>
-  <h3>Aviator Crash Game ✈️</h3>
+  <h3>Neon Aviator Crash Game ✈️</h3>
   <div class="status" id="status"></div>
   <div class="betControl">
     Bet Amount: <input type="number" id="betAmount" value="10" min="10" max="1000" step="10">
@@ -64,13 +65,13 @@ let userBet = {amount:0, multiplier:0, cashedOut:false, won:0};
 let botUsers = [];
 
 // Sounds
-let crashSound = new Audio('https://freesound.org/data/previews/341/341700_5260870-lq.mp3'); // enhanced crash
-let coinSound = new Audio('https://freesound.org/data/previews/341/341695_5260870-lq.mp3'); // cash-out
-let startSound = new Audio('https://freesound.org/data/previews/501/501469_5121236-lq.mp3'); // start whoosh
+let crashSound = new Audio('https://freesound.org/data/previews/341/341700_5260870-lq.mp3');
+let coinSound = new Audio('https://freesound.org/data/previews/341/341695_5260870-lq.mp3');
+let startSound = new Audio('https://freesound.org/data/previews/501/501469_5121236-lq.mp3');
 
 // -------- Clouds --------
-for(let i=0;i<15;i++){
-  clouds.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height/2, size:Math.random()*50+30});
+for(let i=0;i<20;i++){
+  clouds.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height/2, size:Math.random()*50+20});
 }
 
 // -------- Draw Scene --------
@@ -82,7 +83,7 @@ function drawScene(){
   ctx.fillRect(0,0,canvas.width,canvas.height);
   
   // Clouds
-  ctx.fillStyle="rgba(200,200,200,0.3)";
+  ctx.fillStyle="rgba(0,255,255,0.1)";
   clouds.forEach(c=>{
     ctx.beginPath();
     ctx.arc(c.x, c.y, c.size,0,Math.PI*2);
@@ -90,8 +91,10 @@ function drawScene(){
   });
   
   // Graph
-  ctx.strokeStyle="#00ff00";
+  ctx.strokeStyle="#00ffcc";
   ctx.lineWidth=3;
+  ctx.shadowColor="#00ffcc";
+  ctx.shadowBlur=10;
   ctx.beginPath();
   for(let i=0;i<graphData.length;i++){
     let x=i*5;
@@ -99,21 +102,25 @@ function drawScene(){
     if(i==0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
   }
   ctx.stroke();
+  ctx.shadowBlur=0;
   
   // Crash line
   if(!running && multiplier>0){
     let crashY = canvas.height-50 - crashAt*50;
-    ctx.strokeStyle="#ff4b4b";
-    ctx.lineWidth=2;
+    ctx.strokeStyle="#ff00ff";
+    ctx.lineWidth=3;
+    ctx.shadowColor="#ff00ff";
+    ctx.shadowBlur=15;
     ctx.beginPath();
     ctx.moveTo(0,crashY);
     ctx.lineTo(canvas.width,crashY);
     ctx.stroke();
+    ctx.shadowBlur=0;
   }
   
   // Plane trail
   plane.trail.forEach(p=>{
-    ctx.fillStyle="rgba(0,255,255,0.3)";
+    ctx.fillStyle="rgba(0,255,255,0.4)";
     ctx.beginPath();
     ctx.arc(p.x, p.y, 10,0,Math.PI*2);
     ctx.fill();
@@ -124,34 +131,43 @@ function drawScene(){
   ctx.translate(plane.x, plane.y);
   ctx.rotate(plane.angle);
   ctx.font=plane.size+"px Arial";
+  ctx.shadowColor="#00ffff";
+  ctx.shadowBlur=15;
   ctx.fillText("✈️",-plane.size/2,0);
   ctx.restore();
+  ctx.shadowBlur=0;
   
   // Bet markers
   let scaleX=5;
   if(userBet.amount>0){
     let x=graphData.length*scaleX;
     let y=canvas.height-50 - Math.min(multiplier,userBet.multiplier)*50;
-    ctx.fillStyle="#f1c40f";
+    ctx.fillStyle="#ffcc00";
+    ctx.shadowColor="#ffcc00";
+    ctx.shadowBlur=10;
     ctx.beginPath();
     ctx.arc(x,y,8,0,Math.PI*2);
     ctx.fill();
+    ctx.shadowBlur=0;
   }
   botUsers.forEach(b=>{
     if(!b.cashedOut){
       let x=graphData.length*scaleX;
       let y=canvas.height-50 - Math.min(multiplier,b.multiplier)*50;
-      ctx.fillStyle="rgba(255,0,0,0.7)";
+      ctx.fillStyle="#ff33cc";
+      ctx.shadowColor="#ff33cc";
+      ctx.shadowBlur=10;
       ctx.beginPath();
       ctx.arc(x,y,6,0,Math.PI*2);
       ctx.fill();
+      ctx.shadowBlur=0;
     }
   });
   
   // Particles
   for(let i=0;i<particles.length;i++){
     let p=particles[i];
-    ctx.fillStyle="rgba(255,69,0,"+p.alpha+")";
+    ctx.fillStyle="rgba(255,0,255,"+p.alpha+")";
     ctx.beginPath();
     ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
     ctx.fill();
@@ -160,7 +176,7 @@ function drawScene(){
 
 // -------- Particles --------
 function createParticles(x,y){
-  for(let i=0;i<80;i++){
+  for(let i=0;i<100;i++){
     particles.push({
       x:x, y:y,
       vx:(Math.random()-0.5)*6,
@@ -182,9 +198,7 @@ function updateParticles(){
 // -------- Start Game --------
 function startGame(){
   if(running) return;
-  
   startSound.play();
-  
   let amt=parseInt(document.getElementById('betAmount').value);
   let mul=parseFloat(document.getElementById('betMultiplier').value);
   if(amt>coins){alert("Not enough coins"); return;}
@@ -251,7 +265,7 @@ function startGame(){
     // Crash
     if(multiplier>=crashAt){
       running=false;
-      document.getElementById('status').innerHTML="<span style='color:#ff6b6b; font-size:18px;'>CRASH 💥 @ "+crashAt+"x</span>";
+      document.getElementById('status').innerHTML="<span style='color:#ff33ff; font-size:18px;'>CRASH 💥 @ "+crashAt+"x</span>";
       if(!userBet.cashedOut){userBet.won=0; history.push("User LOST @ crash "+crashAt+"x");}
       botUsers.forEach(b=>{if(!b.cashedOut)b.won=0;});
       crashSound.play();
