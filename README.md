@@ -1,181 +1,113 @@
-<Lucky>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lucky Draw App • Firebase Auth</title>
+<title>Mini Gambling Demo (Coins Only)</title>
+<style>
+  body{font-family:Arial;background:#0f1220;color:#fff;text-align:center}
+  .box{max-width:500px;margin:20px auto;padding:20px;border-radius:12px;background:#1b1f3b}
+  h2{margin-bottom:10px;}
+  .mult,.coins{font-size:24px;margin:10px 0;}
+  button{padding:10px 16px;border:0;border-radius:8px;margin:5px;font-size:16px;cursor:pointer}
+  .start{background:#2ecc71}
+  .cash{background:#f1c40f}
+  .crash{color:#ff6b6b}
+  .cards,.fish{margin:10px 0;}
+  .card{display:inline-block;width:60px;height:80px;margin:3px;line-height:80px;font-size:24px;background:#fff;color:#000;border-radius:8px;}
+</style>
+</head>
+<body>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-  import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+<div class="box">
+  <h2>Coins: <span id="coins">100</span></h2>
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyA0_NaAYDKQuoEO58Od7LhZ5enZA-GIP9M",
-    authDomain: "lucky-draw-12ebd.firebaseapp.com",
-    projectId: "lucky-draw-12ebd",
-    storageBucket: "lucky-draw-12ebd.firebasestorage.app",
-    messagingSenderId: "695988718336",
-    appId: "1:695988718336:web:0917d70fe19646992481e5"
-  };
+  <!-- Aviator -->
+  <h3>Aviator ✈️</h3>
+  <div class="mult" id="aviMult">1.00x</div>
+  <div id="aviStatus"></div>
+  <button class="start" onclick="startAviator()">Start Aviator</button>
+  <button class="cash" onclick="cashOutAviator()">Cash Out</button>
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const auth = getAuth(app);
-  let currentUser = null;
+  <hr style="margin:20px 0;border-color:#555">
 
-  async function signupUser() {
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
-    if(!email || !password){ alert('Enter email and password'); return; }
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      currentUser = user.uid;
-      await setDoc(doc(db,'users',user.uid), {coins:1250, draws:0, rewards:0});
-      alert('Account created: '+user.email);
-      document.getElementById('login-page').style.display='none';
-      document.getElementById('app-page').style.display='block';
-      loadUserData();
-    } catch(error) {
-      alert(error.message);
+  <!-- Cards -->
+  <h3>Cards 🎴</h3>
+  <div class="cards" id="cardsArea"></div>
+  <button class="start" onclick="playCards()">Play Cards</button>
+  <div id="cardsStatus"></div>
+
+  <hr style="margin:20px 0;border-color:#555">
+
+  <!-- Fishing -->
+  <h3>Fishing 🎣</h3>
+  <div class="fish" id="fishArea">🎣</div>
+  <button class="start" onclick="playFishing()">Catch Fish</button>
+  <div id="fishStatus"></div>
+</div>
+
+<script>
+let coins = 100;
+
+/* --------- Aviator --------- */
+let running=false, m=1.00, timer=null, crashAt=0;
+function startAviator(){
+  if(running) return;
+  running=true; m=1.00;
+  crashAt = (Math.random()*3 + 1.2).toFixed(2);
+  document.getElementById('aviStatus').innerText="";
+  timer=setInterval(()=>{
+    m+=0.02;
+    document.getElementById('aviMult').innerText=m.toFixed(2)+"x";
+    if(m>=crashAt){
+      clearInterval(timer);
+      running=false;
+      document.getElementById('aviStatus').innerHTML="<span class='crash'>CRASH 💥 @ "+crashAt+"x</span>";
+      coins-=10; updateCoins();
     }
-  }
+  },100);
+}
+function cashOutAviator(){
+  if(!running) return;
+  clearInterval(timer);
+  running=false;
+  document.getElementById('aviStatus').innerText="Cashed out @ "+m.toFixed(2)+"x";
+  coins += Math.floor(10*m); updateCoins();
+}
 
-  async function loginUser() {
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
-    if(!email || !password){ alert('Enter email and password'); return; }
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      currentUser = user.uid;
-      alert('Logged in: '+user.email);
-      document.getElementById('login-page').style.display='none';
-      document.getElementById('app-page').style.display='block';
-      loadUserData();
-    } catch(error) {
-      alert(error.message);
-    }
+/* --------- Cards --------- */
+function playCards(){
+  let suits = ["♠","♥","♦","♣"];
+  let nums = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
+  let area = document.getElementById('cardsArea');
+  area.innerHTML="";
+  for(let i=0;i<3;i++){
+    let card = document.createElement("div");
+    card.className="card";
+    let n = nums[Math.floor(Math.random()*nums.length)];
+    let s = suits[Math.floor(Math.random()*suits.length)];
+    card.innerText = n+s;
+    area.appendChild(card);
   }
+  // Simple win/lose
+  let win = Math.random() < 0.5;
+  document.getElementById('cardsStatus').innerText = win ? "You won 15 coins!" : "You lost 10 coins!";
+  coins += win?15:-10; updateCoins();
+}
 
-  async function loadUserData(){
-    const userRef = doc(db, "users", currentUser);
-    const userSnap = await getDoc(userRef);
-    const data = userSnap.data();
-    document.getElementById('coins').innerText = data.coins;
-    document.getElementById('draws').innerText = data.draws;
-    document.getElementById('rewards').innerText = data.rewards;
-  }
+/* --------- Fishing --------- */
+function playFishing(){
+  let fish = ["🐟","🐠","🦈","🐡","🐬"];
+  let catchFish = fish[Math.floor(Math.random()*fish.length)];
+  document.getElementById('fishArea').innerText = catchFish;
+  let win = Math.random() < 0.6; // 60% chance
+  document.getElementById('fishStatus').innerText = win ? "Fish caught! +10 coins" : "Fish escaped! -5 coins";
+  coins += win?10:-5; updateCoins();
+}
 
-  async function spinWheel(){
-    const reward = Math.floor(Math.random()*500+50);
-    const wheel = document.getElementById('spin-wheel');
-    const deg = Math.floor(Math.random()*360)+720; // 2 spins + random
-    wheel.style.transition = 'transform 3s ease-out';
-    wheel.style.transform = `rotate(${deg}deg)`;
-    setTimeout(async ()=>{
-      alert('You won '+reward+' coins!');
-      const userRef = doc(db, "users", currentUser);
-      await updateDoc(userRef, { coins: increment(reward), draws: increment(1), rewards: increment(reward) });
-      loadUserData();
-      wheel.style.transition='none';
-      wheel.style.transform='rotate(0deg)';
-    },3000);
-  }
-
-  async function buyChances(){
-    const count = parseInt(document.getElementById('buy-chances').value);
-    if(isNaN(count)||count<=0){ alert('Enter valid number'); return; }
-    const userRef = doc(db, "users", currentUser);
-    const userSnap = await getDoc(userRef);
-    const cost = count*100;
-    if(userSnap.data().coins < cost){ alert('Not enough coins'); return; }
-    await updateDoc(userRef, { coins: increment(-cost) });
-    loadUserData();
-  }
-
-  async function depositCoins(){
-    const amount = parseInt(document.getElementById('deposit-amount').value);
-    if(isNaN(amount)||amount<=0){ alert('Enter valid amount'); return; }
-    const userRef = doc(db, "users", currentUser);
-    await updateDoc(userRef, { coins: increment(amount) });
-    loadUserData();
-  }
-
-  async function withdrawCoins(){
-    const amount = parseInt(document.getElementById('withdraw-amount').value);
-    if(isNaN(amount)||amount<=0){ alert('Enter valid amount'); return; }
-    const userRef = doc(db, "users", currentUser);
-    const userSnap = await getDoc(userRef);
-    if(userSnap.data().coins < amount){ alert('Not enough coins'); return; }
-    await updateDoc(userRef, { coins: increment(-amount) });
-    loadUserData();
-  }
+function updateCoins(){
+  document.getElementById('coins').innerText = coins;
+}
 </script>
 
-<style>
-body{margin:0;font-family:'Segoe UI',sans-serif;background:#121212;color:#fff;}
-header{background:#1f1f1f;padding:15px;text-align:center;font-size:24px;font-weight:bold;}
-.container{padding:20px;}
-.card{background:#1e1e1e;border-radius:12px;padding:20px;margin-bottom:15px;box-shadow:0 5px 15px rgba(0,0,0,0.5);}
-.btn{background:#00c6ff;color:#000;padding:10px 18px;border:none;border-radius:25px;cursor:pointer;font-weight:bold;margin-top:10px;}
-.input-field{width:100%;padding:10px;border-radius:8px;margin:6px 0;border:none;background:#2a2a2a;color:#fff;}
-.stats{display:flex;justify-content:space-around;margin-top:15px;}
-.stat{text-align:center;}
-.spin-wheel{width:200px;height:200px;margin:20px auto;border-radius:50%;background:conic-gradient(#00c6ff 0deg 60deg,#0072ff 60deg 120deg,#00c6ff 120deg 180deg,#0072ff 180deg 240deg,#00c6ff 240deg 300deg,#0072ff 300deg 360deg);display:flex;align-items:center;justify-content:center;font-weight:bold;color:#000;box-shadow:0 0 15px #00c6ff;}
-footer{text-align:center;padding:10px;background:#1f1f1f;font-size:14px;}
-@media(max-width:480px){.stats{flex-direction:column;}.card{padding:15px;}}
-</style>
-
-<body>
-<header>🎰 Lucky Draw App</header>
-
-<div class="container" id="login-page">
-  <div class="card">
-    <h2>Login / Signup</h2>
-    <input type="email" id="email" placeholder="Email" class="input-field">
-    <input type="password" id="password" placeholder="Password" class="input-field">
-    <button class="btn" onclick="signupUser()">Sign Up</button>
-    <button class="btn" onclick="loginUser()">Login</button>
-  </div>
-</div>
-
-<div class="container" id="app-page" style="display:none;">
-  <div class="card">
-    <h2>User Dashboard</h2>
-    <div class="stats">
-      <div class="stat"><h3>Coins</h3><p id="coins">0</p></div>
-      <div class="stat"><h3>Draws</h3><p id="draws">0</p></div>
-      <div class="stat"><h3>Rewards</h3><p id="rewards">0</p></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>Spin Wheel</h2>
-    <div class="spin-wheel" id="spin-wheel">SPIN</div>
-    <button class="btn" onclick="spinWheel()">Spin Now</button>
-  </div>
-
-  <div class="card">
-    <h2>Buy Chance</h2>
-    <input type="number" id="buy-chances" class="input-field" placeholder="Number of chances">
-    <button class="btn" onclick="buyChances()">Buy</button>
-  </div>
-
-  <div class="card">
-    <h2>Deposit Coins</h2>
-    <input type="number" id="deposit-amount" class="input-field" placeholder="Coins to deposit">
-    <button class="btn" onclick="depositCoins()">Deposit</button>
-  </div>
-
-  <div class="card">
-    <h2>Withdraw Coins</h2>
-    <input type="number" id="withdraw-amount" class="input-field" placeholder="Coins to withdraw">
-    <button class="btn" onclick="withdrawCoins()">Withdraw</button>
-  </div>
-</div>
-
-<footer>© 2025 Lucky Draw | Firebase Auth Ready</footer>
 </body>
 </html>
