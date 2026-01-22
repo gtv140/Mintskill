@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SkillMint Pro</title>
+<title>SkillMint</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 body{margin:0;font-family:Arial,sans-serif;background:#f3f6fb;color:#111;padding-bottom:140px;overflow-x:hidden;}
@@ -37,9 +37,10 @@ input{width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;margin-to
 .progress-bar{height:8px;background:#d1d5db;border-radius:6px;margin-top:6px;}
 .progress{height:8px;background:#2563eb;width:0%;border-radius:6px;transition:width 0.5s;}
 .icons{display:flex;justify-content:space-around;flex-wrap:wrap;gap:12px;margin-bottom:14px;}
-.icon-card{background:#fff;padding:12px;border-radius:14px;flex:1 0 22%;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.08);cursor:pointer;transition:0.3s;}
+.icon-card{background:#fff;padding:12px;border-radius:14px;flex:1 0 22%;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.08);cursor:pointer;transition:0.3s;display:none;}
 .icon-card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,.12);}
 .icon-card i{font-size:28px;color:#2563eb;margin-bottom:6px;display:block;}
+.more-btn{background:#2563eb;color:#fff;padding:10px 14px;border-radius:12px;cursor:pointer;text-align:center;margin-top:10px;}
 @media(min-width:768px){.cards{flex-direction:row;flex-wrap:wrap}.card{width:48%;}}
 </style>
 </head>
@@ -47,20 +48,25 @@ input{width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;margin-to
 
 <div class="header">
 <h1>SkillMint Pro</h1>
-<p>Learn skills, earn online & build your future</p>
+<p>Learn skills, earn online & build your future. Trusted by beginners and professionals alike.</p>
 <img src="https://picsum.photos/seed/banner/1200/400" alt="Banner" style="width:100%;border-radius:12px;margin-top:10px;">
 </div>
 
 <div class="section" id="home">
 <h2>What SkillMint Offers</h2>
 <p style="text-align:center;max-width:600px;margin:0 auto 12px auto;">
-SkillMint helps beginners learn online skills step-by-step, gain confidence, and earn from YouTube, freelancing, affiliate marketing, and social media. All content is beginner-friendly, practical & trusted.
+SkillMint helps beginners learn online skills step-by-step, gain confidence, and earn from YouTube, freelancing, affiliate marketing, and social media. All courses are beginner-friendly, practical, and trusted by thousands of students.
 </p>
+
+<div class="slider" id="reviewSlider"></div>
+<p class="active-users" id="activeUsers">Active Users: 0</p>
+
 <div class="icons">
- <div class="icon-card" onclick="scrollToSection('courses')"><i class="fas fa-video"></i> YouTube</div>
- <div class="icon-card" onclick="scrollToSection('courses')"><i class="fas fa-laptop-code"></i> Freelancing</div>
- <div class="icon-card" onclick="scrollToSection('courses')"><i class="fas fa-dollar-sign"></i> Affiliate</div>
- <div class="icon-card" onclick="scrollToSection('courses')"><i class="fas fa-users"></i> Social Media</div>
+ <div class="icon-card" id="icon1"><i class="fas fa-video"></i> YouTube</div>
+ <div class="icon-card" id="icon2"><i class="fas fa-laptop-code"></i> Freelancing</div>
+ <div class="icon-card" id="icon3"><i class="fas fa-dollar-sign"></i> Affiliate</div>
+ <div class="icon-card" id="icon4"><i class="fas fa-users"></i> Social Media</div>
+ <div class="more-btn" id="showIconsBtn">More</div>
 </div>
 </div>
 
@@ -72,12 +78,6 @@ SkillMint helps beginners learn online skills step-by-step, gain confidence, and
  <div class="card"><img src="https://picsum.photos/seed/course3/400/250" alt="Affiliate"><h3>Affiliate Marketing</h3><p>Products promote kar ke commission earn karna.</p><span class="badge">High ROI</span></div>
  <div class="card"><img src="https://picsum.photos/seed/course4/400/250" alt="Social Media"><h3>Social Media Growth</h3><p>Instagram & Facebook organic growth strategies step by step.</p><span class="badge">Trending</span></div>
 </div>
-</div>
-
-<div class="section" id="reviews">
-<h2>Student Reviews & Trust</h2>
-<div class="slider" id="reviewSlider"></div>
-<p class="active-users" id="activeUsers">Active Users: 0</p>
 </div>
 
 <div class="section" id="buy">
@@ -206,6 +206,14 @@ function showReviews(){
  reviewIndex=(reviewIndex+1)%reviews.length;
 }
 showReviews();setInterval(showReviews,5000);
+
+// Icons logic
+const iconCards=document.querySelectorAll(".icon-card");
+const showBtn=document.getElementById("showIconsBtn");
+showBtn.onclick=()=>{
+ iconCards.forEach(c=>c.style.display="block");
+ showBtn.style.display="none";
+};
 </script>
 
 </body>
