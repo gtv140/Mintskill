@@ -2,237 +2,240 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SkillMint</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<title>SkillMint – Learn & Earn Online</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Roboto',sans-serif;background:#f5f5f5;color:#111;}
-.container{max-width:1000px;margin:auto;padding:20px;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+body{background:#f6f7fb;color:#222;padding-bottom:70px}
+
+/* Layout */
+.container{max-width:1100px;margin:auto;padding:18px}
+section{margin-bottom:35px}
 
 /* Header */
-header{text-align:center;margin-bottom:30px;}
-header h1{font-size:32px;font-weight:700;color:#222;}
-header p{font-size:16px;color:#555;margin-bottom:10px;}
-header img{width:70px;border-radius:50%;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
-
-/* Sections */
-.section{margin-bottom:25px;}
-.section h2{color:#333;text-align:center;font-size:22px;margin-bottom:15px;display:flex;align-items:center;justify-content:center;gap:8px;}
-.section h2 img{width:25px;height:25px;}
+header{text-align:center;padding:30px 10px}
+header h1{font-size:32px;font-weight:700}
+header p{color:#555;margin-top:8px;font-size:15px}
 
 /* Cards */
-.card-container{display:flex;flex-wrap:wrap;justify-content:center;gap:15px;}
-.card{background:white;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1);padding:20px;width:220px;transition:0.3s;}
-.card:hover{box-shadow:0 8px 25px rgba(0,0,0,0.15);}
-.card img{width:50px;height:50px;margin-bottom:10px;}
-.card h3{color:#222;margin-bottom:6px;font-size:16px;display:flex;align-items:center;gap:5px;}
-.card p{font-size:14px;color:#555;}
+.cards{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.card{
+ background:#fff;
+ border-radius:14px;
+ padding:20px;
+ width:240px;
+ box-shadow:0 8px 20px rgba(0,0,0,.08)
+}
+.card h3{font-size:16px;margin-bottom:6px}
+.card p{font-size:14px;color:#555}
+
+/* Section title */
+h2{font-size:22px;margin-bottom:15px;text-align:center}
 
 /* Buttons */
-.payBtn{padding:12px 0;margin:5px 0;border:none;border-radius:12px;color:white;background:#007BFF;cursor:pointer;font-weight:bold;width:100%;transition:0.3s;}
-.payBtn:hover{background:#0056b3;}
-#openCourse{padding:12px 0;font-size:16px;border:none;border-radius:12px;background:#28a745;color:white;cursor:pointer;width:100%;margin-top:10px;transition:0.3s;}
-#openCourse:hover{background:#218838;}
+.btn{
+ width:100%;
+ padding:12px;
+ border:none;
+ border-radius:10px;
+ background:#2563eb;
+ color:#fff;
+ font-weight:600;
+ font-size:15px;
+ cursor:pointer
+}
+.btn.green{background:#16a34a}
 
-/* Inputs */
-input[type=file], input[type=text]{padding:10px;width:95%;border-radius:8px;border:1px solid #ccc;margin:5px auto;display:block;}
-
-/* Testimonials */
-.testimonial{background:white;border-radius:12px;padding:15px;margin:10px 0;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
-.testimonial p{font-style:italic;color:#555;font-size:14px;}
-.testimonial h4{margin-top:8px;color:#007BFF;font-size:14px;text-align:right;}
+/* Reviews */
+.review{
+ background:#fff;
+ border-radius:12px;
+ padding:16px;
+ box-shadow:0 6px 16px rgba(0,0,0,.08);
+ margin-bottom:12px
+}
+.review p{font-size:14px;color:#444}
+.review span{display:block;margin-top:6px;font-size:13px;color:#2563eb}
 
 /* FAQ */
-.faq{background:#fff;border-radius:10px;padding:12px;margin:8px 0;box-shadow:0 2px 10px rgba(0,0,0,0.08);}
-.faq h4{cursor:pointer;color:#007BFF;display:flex;align-items:center;gap:5px;}
-.faq p{display:none;padding-left:10px;color:#555;font-size:14px;}
+.faq{background:#fff;border-radius:12px;padding:14px;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,.06)}
+.faq h4{font-size:15px;cursor:pointer}
+.faq p{display:none;font-size:14px;color:#555;margin-top:6px}
+
+/* Inputs */
+input,button{font-size:14px}
+input[type=file],input[type=text]{
+ width:100%;
+ padding:10px;
+ border-radius:8px;
+ border:1px solid #ccc;
+ margin-bottom:8px
+}
 
 /* Chatbot */
-#chatUserInput{padding:10px;width:95%;border-radius:8px;border:1px solid #ccc;margin-bottom:8px;}
+.bot-q{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.bot-q button{
+ background:#eef2ff;
+ border:none;
+ padding:6px 10px;
+ border-radius:8px;
+ font-size:12px;
+ cursor:pointer
+}
 
-/* Footer */
-footer{background:#222;color:white;padding:15px 10px;text-align:center;border-radius:10px;font-size:14px;margin-top:20px;}
+/* Bottom Nav */
+.bottom-nav{
+ position:fixed;
+ bottom:0;left:0;
+ width:100%;
+ background:#fff;
+ display:flex;
+ justify-content:space-around;
+ padding:10px 0;
+ box-shadow:0 -3px 12px rgba(0,0,0,.12)
+}
+.bottom-nav a{text-align:center;font-size:11px;color:#333}
+
+/* WhatsApp */
+.whatsapp{
+ position:fixed;
+ bottom:90px;
+ right:18px;
+ background:#25D366;
+ color:#fff;
+ padding:14px;
+ border-radius:50%;
+ font-size:22px;
+ box-shadow:0 6px 20px rgba(0,0,0,.25)
+}
 
 /* Responsive */
 @media(max-width:600px){
-  .card-container{flex-direction:column;align-items:center;}
-  h2{font-size:20px;}
-  header h1{font-size:28px;}
-  .card{width:90%;}
-  .payBtn,#openCourse{font-size:14px;}
+ header h1{font-size:26px}
+ .card{width:100%}
 }
 </style>
 </head>
+
 <body>
+
 <div class="container">
 
-<!-- Header -->
 <header>
 <h1>SkillMint</h1>
-<p>Learn, Earn & Grow Online – Step-by-step guidance for beginners</p>
-<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="SkillMint Logo">
+<p>Beginner-friendly platform to learn online skills & start earning</p>
 </header>
 
-<!-- How SkillMint Helps -->
-<div class="section">
-<h2><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="icon"> How SkillMint Helps You</h2>
-<div class="card-container">
-<div class="card">
-<img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
-<h3>Learn Skills</h3>
-<p>Master YouTube, Freelancing, Affiliate Marketing & Social Media from scratch.</p>
+<section id="learn-skills">
+<h2>What You Will Learn</h2>
+<div class="cards">
+ <div class="card"><h3>YouTube Earning</h3><p>Channel setup, content, SEO, monetization step-by-step.</p></div>
+ <div class="card"><h3>Freelancing</h3><p>Fiverr & Upwork setup, gigs, clients & earnings.</p></div>
+ <div class="card"><h3>Affiliate Marketing</h3><p>Products promote karna aur commission earn karna.</p></div>
+ <div class="card"><h3>Social Media Growth</h3><p>Instagram & Facebook organic growth strategies.</p></div>
 </div>
-<div class="card">
-<img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" alt="Step">
-<h3>Step by Step</h3>
-<p>Beginner-friendly tutorials with practical examples & exercises.</p>
-</div>
-<div class="card">
-<img src="https://cdn-icons-png.flaticon.com/512/1170/1170576.png" alt="Money">
-<h3>Earn Online</h3>
-<p>Apply your skills to start freelancing, monetize YouTube & affiliate marketing safely.</p>
-</div>
-<div class="card">
-<img src="https://cdn-icons-png.flaticon.com/512/565/565313.png" alt="Support">
-<h3>Guidance & Support</h3>
-<p>Clear instructions, proof verification, and real-time course access.</p>
-</div>
-</div>
+</section>
+
+<section>
+<h2>Student Reviews</h2>
+<div class="review"><p>“Mujhe YouTube bilkul zero se samajh aya.”</p><span>— Ali</span></div>
+<div class="review"><p>“Freelancing ka complete roadmap mil gaya.”</p><span>— Sara</span></div>
+</section>
+
+<section id="buy-course">
+<h2>Buy SkillMint Course</h2>
+
+<p><b>Price</b></p>
+<input type="text" id="price" readonly>
+
+<p><b>Deposit Number</b></p>
+<input type="text" id="number" readonly>
+
+<button class="btn" onclick="pay('JazzCash')">JazzCash</button>
+<button class="btn" onclick="pay('EasyPaisa')">EasyPaisa</button>
+<button class="btn" onclick="pay('Binance')">Binance</button>
+
+<p><b>Upload Payment Proof</b></p>
+<input type="file" id="proof">
+
+<p id="timer"></p>
+<button class="btn green" id="open" disabled>Open Course</button>
+</section>
+
+<section id="faq">
+<h2>FAQ</h2>
+<div class="faq"><h4>Verification time?</h4><p>Normally 5 minutes.</p></div>
+<div class="faq"><h4>Beginners ke liye?</h4><p>Yes, bilkul zero level se.</p></div>
+</section>
+
+<section id="chatbot">
+<h2>SkillMint Bot 🤖</h2>
+
+<div class="bot-q">
+<button onclick="ask('skillmint')">What is SkillMint?</button>
+<button onclick="ask('buy')">How to buy?</button>
+<button onclick="ask('payment')">Payment methods?</button>
+<button onclick="ask('beginner')">For beginners?</button>
 </div>
 
-<!-- Testimonials -->
-<div class="section">
-<h2>What Our Learners Say</h2>
-<div class="testimonial">
-<p>"I learned YouTube and freelancing from scratch with SkillMint. Now I earn online confidently!"</p>
-<h4>- Ali R.</h4>
-</div>
-<div class="testimonial">
-<p>"Step-by-step tutorials are easy to follow, even for beginners. Highly recommended!"</p>
-<h4>- Sara K.</h4>
-</div>
+<input type="text" id="q" placeholder="Type your question">
+<button class="btn" onclick="reply()">Ask</button>
+<p id="ans"></p>
+</section>
+
 </div>
 
-<!-- Buy Course Section -->
-<div class="section">
-<h2>Buy SkillMint Complete Course</h2>
-<p><strong>Price:</strong> <input type="text" id="priceDisplay" readonly></p>
-<p><strong>Deposit Number:</strong> <input type="text" id="depositNumber" readonly> <span id="copyMsg">Copied!</span></p>
-<h3>Select Payment Method:</h3>
-<button class="payBtn" onclick="setMethod('JazzCash')">JazzCash</button>
-<button class="payBtn" onclick="setMethod('EasyPaisa')">EasyPaisa</button>
-<button class="payBtn" onclick="setMethod('Binance')">Binance</button>
-<h3>Upload Payment Proof</h3>
-<input type="file" id="proof" accept="image/*">
-<p style="font-size:14px; text-align:center;">Send proof via: 
-<a href="mailto:example@example.com">Email</a> | 
-<a href="https://wa.me/03379827882" target="_blank">WhatsApp</a> | 
-<a href="https://facebook.com/yourprofile" target="_blank">Facebook</a> | 
-<a href="https://instagram.com/yourhandle" target="_blank">Instagram</a>
-</p>
-<div id="timer"></div>
-<button id="openCourse" disabled>Open Course</button>
-</div>
+<a class="whatsapp" href="https://wa.me/923379827882" target="_blank">💬</a>
 
-<!-- FAQ -->
-<div class="section">
-<h2>Frequently Asked Questions</h2>
-<div class="faq" onclick="this.querySelector('p').style.display=this.querySelector('p').style.display==='block'?'none':'block'">
-<h4>How long does it take to verify payment?</h4>
-<p>Verification usually takes 5 minutes after uploading your proof.</p>
+<div class="bottom-nav">
+<a href="#learn-skills">🏠<br>Home</a>
+<a href="#buy-course">🎓<br>Course</a>
+<a href="#faq">❓<br>FAQ</a>
+<a href="#chatbot">🤖<br>Bot</a>
 </div>
-<div class="faq" onclick="this.querySelector('p').style.display=this.querySelector('p').style.display==='block'?'none':'block'">
-<h4>What if my payment proof doesn’t work?</h4>
-<p>Ensure the screenshot clearly shows the transaction details and try re-uploading.</p>
-</div>
-</div>
-
-<!-- Chat Bot Section -->
-<div class="section">
-<h2>Ask SkillMint Bot ❓</h2>
-<input type="text" id="chatUserInput" placeholder="Type your question here...">
-<button onclick="chatBotReply()" style="padding:10px 20px; background:#007BFF; color:white; border:none; border-radius:8px; cursor:pointer;">Ask</button>
-<p id="chatResponse" style="margin-top:15px; color:#333;"></p>
-</div>
-
-<footer>
-<p>Contact us: Email | WhatsApp | Facebook | Instagram</p>
-<p>© 2026 SkillMint</p>
-</footer>
 
 <script>
-// Payment auto-fill & copy
-let openBtn=document.getElementById('openCourse');
-let timerDiv=document.getElementById('timer');
-let priceDisplay=document.getElementById('priceDisplay');
-let depositField=document.getElementById('depositNumber');
-let proofInput=document.getElementById('proof');
-let copyMsg=document.getElementById('copyMsg');
-
-function setMethod(method){
-    let price=500;
-    let depositNum="";
-    if(method==='JazzCash') depositNum="03705519562";
-    else if(method==='EasyPaisa') depositNum="03379827882";
-    else if(method==='Binance') depositNum="0xBfB9E5b2baA8202850DfFb2CB1D739278b83f47F";
-    priceDisplay.value=price+" PKR";
-    depositField.value=depositNum;
-    navigator.clipboard.writeText(depositNum).then(()=>{
-        copyMsg.style.display="inline";
-        setTimeout(()=>{ copyMsg.style.display="none"; },2000);
-    });
-    localStorage.setItem('paymentMethod',method);
-    localStorage.setItem('depositNum',depositNum);
-    localStorage.setItem('price',price);
+function pay(m){
+ let p=500,n='';
+ if(m=='JazzCash')n='03705519562';
+ if(m=='EasyPaisa')n='03379827882';
+ if(m=='Binance')n='0xBfB9E5b2baA8202850DfFb2CB1D739278b83f47F';
+ price.value=p+' PKR'; number.value=n;
+ navigator.clipboard.writeText(n);
 }
 
-// Countdown timer
-let savedTime=localStorage.getItem('timer')||0;
-let savedProof=localStorage.getItem('proofUploaded')==='true';
-if(savedProof && savedTime>0) startCountdown(parseInt(savedTime));
+proof.onchange=()=>{
+ let t=300;
+ let i=setInterval(()=>{
+  timer.innerText='Access in '+t+'s';
+  t--;
+  if(t<0){clearInterval(i);open.disabled=false}
+ },1000);
+};
 
-proofInput.addEventListener('change',function(){
-    if(this.files.length>0){
-        localStorage.setItem('proofUploaded','true');
-        startCountdown(300);
-    }
+open.onclick=()=>window.open('https://gtv140.github.io/SkillMint-complete-course-/','_blank');
+
+const bot=[
+ {k:['skillmint'],r:'SkillMint ek beginner platform hai jahan online earning skills sikhai jati hain.'},
+ {k:['buy'],r:'Payment method select karo, proof upload karo, 5 min baad access milega.'},
+ {k:['payment'],r:'JazzCash, EasyPaisa aur Binance available hain.'},
+ {k:['beginner'],r:'Yes, bilkul beginners ke liye hai.'}
+];
+
+function reply(){
+ let qv=q.value.toLowerCase();
+ let r='Please simple words use karein.';
+ bot.forEach(b=>{if(b.k.some(k=>qv.includes(k)))r=b.r});
+ ans.innerText=r;
+}
+function ask(t){q.value=t;reply();}
+document.querySelectorAll('.faq h4').forEach(f=>{
+ f.onclick=()=>f.nextElementSibling.style.display=
+ f.nextElementSibling.style.display=='block'?'none':'block'
 });
-
-function startCountdown(duration){
-    let time=duration;
-    localStorage.setItem('timer',time);
-    let countdown=setInterval(()=>{
-        let minutes=Math.floor(time/60);
-        let seconds=time%60;
-        timerDiv.innerText=`Access in: ${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
-        time--;
-        localStorage.setItem('timer',time);
-        if(time<0){
-            clearInterval(countdown);
-            timerDiv.innerText="Payment verified! You can now access the course.";
-            openBtn.disabled=false;
-        }
-    },1000);
-}
-
-openBtn.onclick=()=>{
-    window.open('https://gtv140.github.io/SkillMint-complete-course-/','_blank');
-};
-
-// Chatbot system
-const botData = {
-    "what is skillmint": "SkillMint is a learning platform that helps beginners learn online skills like YouTube, freelancing, affiliate marketing & more.",
-    "how do i buy the course": "To buy the course: choose a payment method → deposit amount → upload your payment screenshot → wait 5 minutes → access your course.",
-    "what payment methods do you accept": "We accept JazzCash, EasyPaisa & Binance (crypto).",
-    "how long does verification take": "Payment verification usually takes about 5 minutes after uploading your proof.",
-    "is this course suitable for beginners": "Yes! All tutorials are beginner friendly with step‑by‑step explanations."
-};
-
-function chatBotReply(){
-    let userQ=document.getElementById('chatUserInput').value.trim().toLowerCase();
-    let reply=botData[userQ]||"Sorry, I don't have an answer for that yet. Try using simple words or check the FAQ section!";
-    document.getElementById('chatResponse').innerText=reply;
-}
 </script>
+
 </body>
 </html>
