@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SkillMint</title>
+<title>SkillMint Pro</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 body{margin:0;font-family:Arial,sans-serif;background:#f3f6fb;color:#111;padding-bottom:140px;overflow-x:hidden;}
@@ -62,10 +62,10 @@ SkillMint helps beginners learn online skills step-by-step, gain confidence, and
 <p class="active-users" id="activeUsers">Active Users: 0</p>
 
 <div class="icons">
- <div class="icon-card" id="icon1"><i class="fas fa-video"></i> YouTube</div>
- <div class="icon-card" id="icon2"><i class="fas fa-laptop-code"></i> Freelancing</div>
- <div class="icon-card" id="icon3"><i class="fas fa-dollar-sign"></i> Affiliate</div>
- <div class="icon-card" id="icon4"><i class="fas fa-users"></i> Social Media</div>
+ <div class="icon-card" id="icon1" onclick="scrollToSection('courses')"><i class="fas fa-video"></i> YouTube</div>
+ <div class="icon-card" id="icon2" onclick="scrollToSection('courses')"><i class="fas fa-laptop-code"></i> Freelancing</div>
+ <div class="icon-card" id="icon3" onclick="scrollToSection('courses')"><i class="fas fa-dollar-sign"></i> Affiliate</div>
+ <div class="icon-card" id="icon4" onclick="scrollToSection('courses')"><i class="fas fa-users"></i> Social Media</div>
  <div class="more-btn" id="showIconsBtn">More</div>
 </div>
 </div>
@@ -146,16 +146,32 @@ function pay(m){
  localStorage.setItem("lastPrice", price.value);
 }
 
-// Proof verification countdown
-proof.onchange=()=>{
- let t=300;
- localStorage.setItem("proofUploaded","true");
- let i=setInterval(()=>{
-  status.innerText="Verifying... "+t+"s";
-  progress.style.width=((300-t)/300*100)+'%';
-  t--;
-  if(t<0){clearInterval(i);status.innerText="Access Granted ✔";open.disabled=false;progress.style.width='100%';}
+// Proof verification countdown with localStorage
+let totalTime = 300;
+let savedTime = localStorage.getItem("timerLeft");
+if(savedTime){ totalTime = parseInt(savedTime); }
+
+let timerInterval;
+function startTimer(){
+ timerInterval = setInterval(()=>{
+  if(totalTime <= 0){
+   clearInterval(timerInterval);
+   document.getElementById("status").innerText = "Access Granted ✔";
+   document.getElementById("open").disabled = false;
+   document.getElementById("progress").style.width = "100%";
+   localStorage.removeItem("timerLeft");
+  } else {
+   document.getElementById("status").innerText = "Verifying... " + totalTime + "s";
+   document.getElementById("progress").style.width = ((300 - totalTime)/300*100) + "%";
+   totalTime--;
+   localStorage.setItem("timerLeft", totalTime);
+  }
  },1000);
+}
+
+proof.onchange=()=>{
+ startTimer();
+ localStorage.setItem("proofUploaded","true");
 }
 
 // Open Course
@@ -207,7 +223,7 @@ function showReviews(){
 }
 showReviews();setInterval(showReviews,5000);
 
-// Icons logic
+// Icons logic: initially hidden, show on More click
 const iconCards=document.querySelectorAll(".icon-card");
 const showBtn=document.getElementById("showIconsBtn");
 showBtn.onclick=()=>{
