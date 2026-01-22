@@ -7,28 +7,34 @@
 <style>
 body { margin:0; font-family:'Roboto', sans-serif; background:#0a0a0a; color:white;}
 .container { max-width:1000px; margin:auto; padding:20px; }
-header { text-align:center; margin-bottom:30px; }
-header h1 { font-size:36px; color:#00ffff; margin-bottom:10px; }
+header { text-align:center; margin-bottom:30px; padding:10px;}
+header h1 { font-size:32px; color:#00ffff; margin-bottom:10px; }
 header p { color:#ccc; font-size:16px; }
-.section { background:#111; border-radius:12px; padding:25px; margin-bottom:30px; }
-h2 { color:#ff00ff; margin-bottom:15px; }
+header img { width:80px; margin-top:10px; }
+.section { background:#111; border-radius:12px; padding:20px; margin-bottom:25px; }
+h2 { color:#ff00ff; margin-bottom:15px; text-align:center;}
 .card-container { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin-top:20px; }
 .card { background:#1a1a1a; border-radius:12px; padding:20px; width:220px; box-shadow:0 0 8px rgba(0,255,255,0.3); text-align:center; transition:0.3s; }
-.card h3 { color:#ff00ff; margin-bottom:10px; }
+.card h3 { color:#ff00ff; margin-bottom:10px; font-size:16px; }
 .card p { font-size:14px; }
 .card img { width:50px; height:50px; margin-bottom:10px; }
-.payBtn { padding:10px 20px; margin:5px; border:none; border-radius:8px; color:white; cursor:pointer; font-weight:bold; background:#222; box-shadow:0 0 5px rgba(0,255,255,0.3); transition:0.3s; }
+.payBtn { padding:12px 0; margin:5px 0; border:none; border-radius:8px; color:white; cursor:pointer; font-weight:bold; background:#222; box-shadow:0 0 5px rgba(0,255,255,0.3); width:100%; max-width:250px; transition:0.3s; display:block; }
 .payBtn:hover { transform:scale(1.05); box-shadow:0 0 10px rgba(0,255,255,0.5); }
-#openCourse { padding:12px 35px; font-size:16px; border:none; border-radius:10px; background:#ff00ff; color:white; cursor:pointer; box-shadow:0 0 5px rgba(255,0,255,0.4); transition:0.3s; }
+#openCourse { padding:12px 0; font-size:16px; border:none; border-radius:10px; background:#ff00ff; color:white; cursor:pointer; box-shadow:0 0 5px rgba(255,0,255,0.4); transition:0.3s; width:100%; max-width:250px; display:block; margin:auto; }
 #openCourse:hover { transform:scale(1.03); box-shadow:0 0 10px rgba(255,0,255,0.6); }
-input[type=file], input[type=text] { padding:10px; width:80%; border-radius:6px; border:1px solid #555; margin-bottom:10px; text-align:center; background:#222; color:white; }
+input[type=file], input[type=text] { padding:12px; width:90%; border-radius:6px; border:1px solid #555; margin-bottom:10px; text-align:center; background:#222; color:white; display:block; margin:auto; }
 #copyMsg { color:#00ff00; display:none; font-weight:bold; margin-left:10px; }
-#timer { font-size:16px; color:#ffcc00; margin-top:10px; }
-footer { background:#0d47a1; color:white; padding:15px 0; text-align:center; border-radius:8px; margin-top:20px; }
-@media(max-width:800px){ .card-container{ flex-direction:column; align-items:center;} input[type=file], input[type=text]{width:90%;} }
+#timer { font-size:16px; color:#ffcc00; margin-top:10px; text-align:center; }
+footer { background:#0d47a1; color:white; padding:15px 10px; text-align:center; border-radius:8px; margin-top:20px; font-size:14px; }
 .tooltip { position:relative; display:inline-block; cursor:pointer; }
 .tooltip .tooltiptext { visibility:hidden; width:220px; background:#333; color:#fff; text-align:center; border-radius:6px; padding:5px; position:absolute; z-index:1; bottom:125%; left:50%; transform:translateX(-50%); opacity:0; transition:opacity 0.3s; font-size:13px; }
 .tooltip:hover .tooltiptext { visibility:visible; opacity:1; }
+@media(max-width:600px){ 
+    .card-container{ flex-direction:column; align-items:center; }
+    h2{ font-size:20px; }
+    header h1{ font-size:26px; }
+    .card { width:90%; }
+}
 </style>
 </head>
 <body>
@@ -39,7 +45,7 @@ footer { background:#0d47a1; color:white; padding:15px 0; text-align:center; bor
 <header>
 <h1>SkillMint</h1>
 <p>Learn, Earn & Grow Online – Step-by-step guidance for beginners</p>
-<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="SkillMint Logo" style="width:80px; margin-top:10px;">
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="SkillMint Logo">
 </header>
 
 <!-- How SkillMint Helps -->
@@ -85,7 +91,7 @@ footer { background:#0d47a1; color:white; padding:15px 0; text-align:center; bor
 </span></h3>
 <input type="file" id="proof" accept="image/*">
 
-<p style="font-size:14px;">Send proof via: 
+<p style="font-size:14px; text-align:center;">Send proof via: 
 <a href="mailto:example@example.com" style="color:#ff00ff;">Email</a> | 
 <a href="https://wa.me/03379827882" target="_blank" style="color:#00ff00;">WhatsApp</a> | 
 <a href="https://facebook.com/yourprofile" target="_blank" style="color:#1877f2;">Facebook</a> | 
