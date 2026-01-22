@@ -6,14 +6,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
 body { margin:0; font-family:'Roboto', sans-serif; background:#0a0a0a; color:white;}
-.container { max-width:1000px; margin:auto; padding:20px; border-radius:12px; background:#111; }
-header { text-align:center; margin-bottom:25px; }
-header h1 { font-size:36px; color:#00ffff; margin-bottom:5px; }
+.container { max-width:1000px; margin:auto; padding:20px; }
+header { text-align:center; margin-bottom:30px; }
+header h1 { font-size:36px; color:#00ffff; margin-bottom:10px; }
 header p { color:#ccc; font-size:16px; }
-.section { background:#1a1a1a; border-radius:10px; padding:25px; margin-bottom:30px; }
+.section { background:#111; border-radius:12px; padding:25px; margin-bottom:30px; }
 h2 { color:#ff00ff; margin-bottom:15px; }
 .card-container { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin-top:20px; }
-.card { background:#111; border-radius:10px; padding:20px; width:220px; box-shadow:0 0 8px rgba(0,255,255,0.5); text-align:center; transition:0.3s; }
+.card { background:#1a1a1a; border-radius:12px; padding:20px; width:220px; box-shadow:0 0 8px rgba(0,255,255,0.3); text-align:center; transition:0.3s; }
 .card h3 { color:#ff00ff; margin-bottom:10px; }
 .card p { font-size:14px; }
 .card img { width:50px; height:50px; margin-bottom:10px; }
@@ -27,18 +27,49 @@ input[type=file], input[type=text] { padding:10px; width:80%; border-radius:6px;
 footer { background:#0d47a1; color:white; padding:15px 0; text-align:center; border-radius:8px; margin-top:20px; }
 @media(max-width:800px){ .card-container{ flex-direction:column; align-items:center;} input[type=file], input[type=text]{width:90%;} }
 .tooltip { position:relative; display:inline-block; cursor:pointer; }
-.tooltip .tooltiptext { visibility:hidden; width:200px; background:#333; color:#fff; text-align:center; border-radius:6px; padding:5px; position:absolute; z-index:1; bottom:125%; left:50%; transform:translateX(-50%); opacity:0; transition:opacity 0.3s; font-size:13px; }
+.tooltip .tooltiptext { visibility:hidden; width:220px; background:#333; color:#fff; text-align:center; border-radius:6px; padding:5px; position:absolute; z-index:1; bottom:125%; left:50%; transform:translateX(-50%); opacity:0; transition:opacity 0.3s; font-size:13px; }
 .tooltip:hover .tooltiptext { visibility:visible; opacity:1; }
 </style>
 </head>
 <body>
+
 <div class="container">
 
+<!-- Hero / Start -->
 <header>
 <h1>SkillMint</h1>
-<p>Learn, Earn & Grow – Step by Step for Beginners</p>
+<p>Learn, Earn & Grow Online – Step-by-step guidance for beginners</p>
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="SkillMint Logo" style="width:80px; margin-top:10px;">
 </header>
 
+<!-- How SkillMint Helps -->
+<div class="section">
+<h2>How SkillMint Helps You</h2>
+<div class="card-container">
+<div class="card">
+<img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+<h3>Learn Skills</h3>
+<p>Master YouTube, Freelancing, Affiliate Marketing & Social Media from scratch.</p>
+</div>
+<div class="card">
+<img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" alt="Step">
+<h3>Step by Step</h3>
+<p>Beginner-friendly tutorials with practical examples & exercises.</p>
+</div>
+<div class="card">
+<img src="https://cdn-icons-png.flaticon.com/512/1170/1170576.png" alt="Money">
+<h3>Earn Online</h3>
+<p>Apply your skills to start freelancing, monetize YouTube & affiliate marketing safely.</p>
+</div>
+<div class="card">
+<img src="https://cdn-icons-png.flaticon.com/512/565/565313.png" alt="Support">
+<h3>Guidance & Support</h3>
+<p>Clear instructions, proof verification, and real-time course access.</p>
+</div>
+</div>
+</div>
+
+<!-- Buy Course / Payment Section -->
 <div class="section">
 <h2>🎓 Buy SkillMint Complete Course</h2>
 <p><strong>Price:</strong> <input type="text" id="priceDisplay" readonly></p>
@@ -63,32 +94,6 @@ footer { background:#0d47a1; color:white; padding:15px 0; text-align:center; bor
 
 <div id="timer"></div>
 <button id="openCourse" disabled>Open Course</button>
-</div>
-
-<div class="section">
-<h2>How SkillMint Helps You</h2>
-<div class="card-container">
-<div class="card">
-<img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
-<h3>Learn Skills</h3>
-<p>Master YouTube, Freelancing, Affiliate Marketing & Social Media from scratch.</p>
-</div>
-<div class="card">
-<img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" alt="Step">
-<h3>Step by Step</h3>
-<p>Beginner-friendly tutorials with practical examples & exercises.</p>
-</div>
-<div class="card">
-<img src="https://cdn-icons-png.flaticon.com/512/1170/1170576.png" alt="Money">
-<h3>Earn Online</h3>
-<p>Apply your skills to start freelancing, monetize YouTube & affiliate marketing.</p>
-</div>
-<div class="card">
-<img src="https://cdn-icons-png.flaticon.com/512/565/565313.png" alt="Support">
-<h3>Guidance & Support</h3>
-<p>Clear instructions, proof verification, and real-time course access.</p>
-</div>
-</div>
 </div>
 
 <footer>
