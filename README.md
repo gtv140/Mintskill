@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -46,25 +45,22 @@ input{width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;margin-to
 <div class="header">
 <h1>SkillMint Pro</h1>
 <p>Learn skills • Earn online • Beginner friendly</p>
+<img src="https://picsum.photos/seed/banner/1200/400" alt="Banner" style="width:100%;border-radius:12px;margin-top:10px;">
 </div>
 
 <div class="section" id="home">
 <h2>Courses You Will Learn</h2>
 <div class="cards">
- <div class="card"><img src="https://i.ibb.co/0X1FjPZ/youtube.png" alt="YouTube"><h3>YouTube Earning</h3><p>Zero se channel setup, content, SEO aur monetization step by step.</p><span class="badge">Beginner Friendly</span></div>
- <div class="card"><img src="https://i.ibb.co/0X1FjPZ/freelancing.png" alt="Freelancing"><h3>Freelancing</h3><p>Fiverr & Upwork complete roadmap, gigs, clients & earnings.</p><span class="badge">Most Popular</span></div>
- <div class="card"><img src="https://i.ibb.co/0X1FjPZ/affiliate.png" alt="Affiliate"><h3>Affiliate Marketing</h3><p>Products promote kar ke commission earn karna.</p><span class="badge">High ROI</span></div>
- <div class="card"><img src="https://i.ibb.co/0X1FjPZ/social.png" alt="Social Media"><h3>Social Media Growth</h3><p>Instagram & Facebook organic growth strategies step by step.</p><span class="badge">Trending</span></div>
+ <div class="card"><img src="https://picsum.photos/seed/course1/400/250" alt="YouTube"><h3>YouTube Earning</h3><p>Zero se channel setup, content, SEO aur monetization step by step.</p><span class="badge">Beginner Friendly</span></div>
+ <div class="card"><img src="https://picsum.photos/seed/course2/400/250" alt="Freelancing"><h3>Freelancing</h3><p>Fiverr & Upwork complete roadmap, gigs, clients & earnings.</p><span class="badge">Most Popular</span></div>
+ <div class="card"><img src="https://picsum.photos/seed/course3/400/250" alt="Affiliate"><h3>Affiliate Marketing</h3><p>Products promote kar ke commission earn karna.</p><span class="badge">High ROI</span></div>
+ <div class="card"><img src="https://picsum.photos/seed/course4/400/250" alt="Social Media"><h3>Social Media Growth</h3><p>Instagram & Facebook organic growth strategies step by step.</p><span class="badge">Trending</span></div>
 </div>
 </div>
 
 <div class="section" id="reviews">
 <h2>Student Reviews</h2>
-<div class="slider" id="reviewSlider">
- <div class="review"><img src="https://i.ibb.co/0X1FjPZ/avatar1.png" alt="Avatar"><p>“Mujhe YouTube bilkul zero se samajh aya.”</p><span>— Ali</span></div>
- <div class="review"><img src="https://i.ibb.co/0X1FjPZ/avatar2.png" alt="Avatar"><p>“Freelancing ka complete roadmap mil gaya.”</p><span>— Sara</span></div>
- <div class="review"><img src="https://i.ibb.co/0X1FjPZ/avatar3.png" alt="Avatar"><p>“Affiliate marketing se earning start ki.”p><span>— Ahmed</span></div>
-</div>
+<div class="slider" id="reviewSlider"></div>
 </div>
 
 <div class="section" id="buy">
@@ -127,19 +123,14 @@ function pay(m){
  alert("Deposit number copied ✅");
 }
 
-// Proof verification with progress
+// Proof verification countdown
 proof.onchange=()=>{
- let t=180;
+ let t=300;
  let i=setInterval(()=>{
   status.innerText="Verifying... "+t+"s";
-  progress.style.width=((180-t)/180*100)+'%';
+  progress.style.width=((300-t)/300*100)+'%';
   t--;
-  if(t<0){
-   clearInterval(i);
-   status.innerText="Access Granted ✔";
-   open.disabled=false;
-   progress.style.width='100%';
-  }
+  if(t<0){clearInterval(i);status.innerText="Access Granted ✔";open.disabled=false;progress.style.width='100%';}
  },1000);
 }
 open.onclick=()=>{window.open("https://gtv140.github.io/SkillMint-complete-course-/","_blank");}
@@ -148,27 +139,60 @@ open.onclick=()=>{window.open("https://gtv140.github.io/SkillMint-complete-cours
 document.querySelectorAll(".faq h4").forEach(f=>{f.onclick=()=>{f.nextElementSibling.style.display=f.nextElementSibling.style.display==="block"?"none":"block";}})
 
 // Bot system
-function bot(){
- let x=q.value.toLowerCase(),r="Please ask a simple question.";
- if(x.includes("price")) r="Course price: 500 PKR.";
- if(x.includes("payment")) r="Payment methods: JazzCash, EasyPaisa, Binance.";
- if(x.includes("beginner")) r="Yes, course is beginner friendly.";
- if(x.includes("youtube")) r="You will learn YouTube earning step by step.";
- if(x.includes("freelance")) r="Complete Freelancing roadmap included.";
- a.innerText=r;
-}
+function bot(){let x=q.value.toLowerCase(),r="Please ask a simple question.";
+if(x.includes("price")) r="Course price: 500 PKR.";
+if(x.includes("payment")) r="Payment methods: JazzCash, EasyPaisa, Binance.";
+if(x.includes("beginner")) r="Yes, course is beginner friendly.";
+if(x.includes("youtube")) r="You will learn YouTube earning step by step.";
+if(x.includes("freelance")) r="Complete Freelancing roadmap included.";
+a.innerText=r;}
 function botQuick(qs){q.value=qs;bot();}
 
 // Random active users
 let activeCount=50;
-setInterval(()=>{
- activeCount=Math.floor(50+Math.random()*100);
- document.getElementById("activeUsers").innerText="Active Users: "+activeCount;
-},3000);
+setInterval(()=>{activeCount=Math.floor(50+Math.random()*100);document.getElementById("activeUsers").innerText="Active Users: "+activeCount;},3000);
 
-// Reviews auto scroll
-let slider=document.getElementById("reviewSlider");
-setInterval(()=>{slider.scrollBy({left:230,behavior:'smooth'});},4000);
+// Generate 25 random reviews
+const reviews=[
+{avatar:"https://picsum.photos/seed/avatar1/50/50",text:"Amazing course, YouTube setup clear." ,name:"Ali"},
+{avatar:"https://picsum.photos/seed/avatar2/50/50",text:"Freelancing roadmap is perfect.",name:"Sara"},
+{avatar:"https://picsum.photos/seed/avatar3/50/50",text:"Affiliate marketing helped me earn.",name:"Ahmed"},
+{avatar:"https://picsum.photos/seed/avatar4/50/50",text:"Social Media strategies are excellent.",name:"Hina"},
+{avatar:"https://picsum.photos/seed/avatar5/50/50",text:"I learned everything step by step.",name:"Bilal"},
+{avatar:"https://picsum.photos/seed/avatar6/50/50",text:"Loved the bot feature.",name:"Zara"},
+{avatar:"https://picsum.photos/seed/avatar7/50/50",text:"Payment verification is smooth.",name:"Tariq"},
+{avatar:"https://picsum.photos/seed/avatar8/50/50",text:"Great beginner friendly instructions.",name:"Amna"},
+{avatar:"https://picsum.photos/seed/avatar9/50/50",text:"I can now earn online.",name:"Fahad"},
+{avatar:"https://picsum.photos/seed/avatar10/50/50",text:"SkillMint helped me a lot.",name:"Sana"},
+{avatar:"https://picsum.photos/seed/avatar11/50/50",text:"Very professional course.",name:"Naveed"},
+{avatar:"https://picsum.photos/seed/avatar12/50/50",text:"Loved the UI and layout.",name:"Maya"},
+{avatar:"https://picsum.photos/seed/avatar13/50/50",text:"Clear instructions and tips.",name:"Hamza"},
+{avatar:"https://picsum.photos/seed/avatar14/50/50",text:"Fast results after practice.",name:"Rida"},
+{avatar:"https://picsum.photos/seed/avatar15/50/50",text:"Support and guidance is good.",name:"Shahzain"},
+{avatar:"https://picsum.photos/seed/avatar16/50/50",text:"Highly recommended!",name:"Zeeshan"},
+{avatar:"https://picsum.photos/seed/avatar17/50/50",text:"I learned so much.",name:"Mehwish"},
+{avatar:"https://picsum.photos/seed/avatar18/50/50",text:"Easy to follow steps.",name:"Umar"},
+{avatar:"https://picsum.photos/seed/avatar19/50/50",text:"Amazing course structure.",name:"Kiran"},
+{avatar:"https://picsum.photos/seed/avatar20/50/50",text:"Everything explained well.",name:"Areeba"},
+{avatar:"https://picsum.photos/seed/avatar21/50/50",text:"Practical tips are great.",name:"Saad"},
+{avatar:"https://picsum.photos/seed/avatar22/50/50",text:"I improved my skills.",name:"Hira"},
+{avatar:"https://picsum.photos/seed/avatar23/50/50",text:"Loved the progress tracker.",name:"Aliya"},
+{avatar:"https://picsum.photos/seed/avatar24/50/50",text:"Motivating course!",name:"Zain"},
+{avatar:"https://picsum.photos/seed/avatar25/50/50",text:"Will recommend to friends.",name:"Bilal"}
+];
+
+const slider=document.getElementById("reviewSlider");
+let reviewIndex=0;
+function showReviews(){
+ slider.innerHTML="";
+ for(let i=0;i<3;i++){
+  const r=reviews[(reviewIndex+i)%reviews.length];
+  slider.innerHTML+=`<div class="review"><img src="${r.avatar}" alt="Avatar"><p>"${r.text}"</p><span>— ${r.name}</span></div>`;
+ }
+ reviewIndex=(reviewIndex+1)%reviews.length;
+}
+showReviews();
+setInterval(showReviews,5000);
 </script>
 
 </body>
