@@ -5,32 +5,30 @@
 <title>SkillMint</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body { margin:0; font-family:'Roboto', sans-serif; background: linear-gradient(135deg, #0a0a0a, #1a1a1a); color:white; }
-.container { max-width:1000px; margin:auto; padding:20px; border-radius:15px; box-shadow:0 8px 25px rgba(0,0,0,0.5); background:rgba(0,0,0,0.7);}
+body { margin:0; font-family:'Roboto', sans-serif; background:#0a0a0a; color:white;}
+.container { max-width:1000px; margin:auto; padding:20px; border-radius:12px; background:#111; }
 header { text-align:center; margin-bottom:25px; }
-header h1 { font-size:40px; color:#00ffff; text-shadow:0 0 10px #00ffff,0 0 20px #00ffff; }
-header p { color:#f0f0f0; font-size:18px; }
-.section { background:#111; border-radius:12px; padding:25px; margin-bottom:40px; box-shadow:0 0 15px #00ffff; position:relative;}
-h2 { color:#ff00ff; text-shadow:0 0 5px #ff00ff; }
-.payBtn { padding:12px 25px; margin:5px; border:none; border-radius:10px; color:white; cursor:pointer; font-weight:bold; transition:0.3s; }
-.payBtn:hover { transform:scale(1.1); box-shadow:0 0 15px #00ffff, 0 0 25px #ff00ff; }
-#openCourse { padding:15px 50px; margin-top:20px; font-size:18px; border:none; border-radius:12px; background:#ff00ff; color:white; cursor:pointer; transition:0.3s; box-shadow:0 0 10px #ff00ff; }
-#openCourse:hover { transform:scale(1.05); box-shadow:0 0 20px #ff00ff,0 0 30px #00ffff; }
+header h1 { font-size:36px; color:#00ffff; margin-bottom:5px; }
+header p { color:#ccc; font-size:16px; }
+.section { background:#1a1a1a; border-radius:10px; padding:25px; margin-bottom:30px; }
+h2 { color:#ff00ff; margin-bottom:15px; }
 .card-container { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin-top:20px; }
-.card { background:#111; border-radius:12px; padding:20px; width:220px; box-shadow:0 0 10px #00ffff; transition:0.3s; text-align:center; }
+.card { background:#111; border-radius:10px; padding:20px; width:220px; box-shadow:0 0 8px rgba(0,255,255,0.5); text-align:center; transition:0.3s; }
 .card h3 { color:#ff00ff; margin-bottom:10px; }
 .card p { font-size:14px; }
-.card img { width:60px; height:60px; margin-bottom:10px; }
-button.payBtn:hover, .card:hover { transform:scale(1.05); }
-input[type=file], input[type=text] { padding:12px; width:80%; border-radius:8px; border:1px solid #ccc; margin-bottom:10px; text-align:center; }
-footer { background:#0d47a1; color:white; padding:20px 0; text-align:center; margin-top:40px; border-radius:12px; }
+.card img { width:50px; height:50px; margin-bottom:10px; }
+.payBtn { padding:10px 20px; margin:5px; border:none; border-radius:8px; color:white; cursor:pointer; font-weight:bold; background:#222; box-shadow:0 0 5px rgba(0,255,255,0.3); transition:0.3s; }
+.payBtn:hover { transform:scale(1.05); box-shadow:0 0 10px rgba(0,255,255,0.5); }
+#openCourse { padding:12px 35px; font-size:16px; border:none; border-radius:10px; background:#ff00ff; color:white; cursor:pointer; box-shadow:0 0 5px rgba(255,0,255,0.4); transition:0.3s; }
+#openCourse:hover { transform:scale(1.03); box-shadow:0 0 10px rgba(255,0,255,0.6); }
+input[type=file], input[type=text] { padding:10px; width:80%; border-radius:6px; border:1px solid #555; margin-bottom:10px; text-align:center; background:#222; color:white; }
 #copyMsg { color:#00ff00; display:none; font-weight:bold; margin-left:10px; }
-#timer { font-size:18px; color:#ffcc00; text-shadow:0 0 5px #ffcc00; margin-top:10px; }
-.confetti { position:fixed; width:10px; height:10px; background:#ff00ff; top:0; left:0; pointer-events:none; z-index:9999; border-radius:50%; }
-.tooltip { position:relative; display:inline-block; cursor:pointer; }
-.tooltip .tooltiptext { visibility:hidden; width:200px; background:#333; color:#fff; text-align:center; border-radius:6px; padding:5px; position:absolute; z-index:1; bottom:125%; left:50%; transform:translateX(-50%); opacity:0; transition:opacity 0.3s; }
-.tooltip:hover .tooltiptext { visibility:visible; opacity:1; }
+#timer { font-size:16px; color:#ffcc00; margin-top:10px; }
+footer { background:#0d47a1; color:white; padding:15px 0; text-align:center; border-radius:8px; margin-top:20px; }
 @media(max-width:800px){ .card-container{ flex-direction:column; align-items:center;} input[type=file], input[type=text]{width:90%;} }
+.tooltip { position:relative; display:inline-block; cursor:pointer; }
+.tooltip .tooltiptext { visibility:hidden; width:200px; background:#333; color:#fff; text-align:center; border-radius:6px; padding:5px; position:absolute; z-index:1; bottom:125%; left:50%; transform:translateX(-50%); opacity:0; transition:opacity 0.3s; font-size:13px; }
+.tooltip:hover .tooltiptext { visibility:visible; opacity:1; }
 </style>
 </head>
 <body>
@@ -44,20 +42,19 @@ footer { background:#0d47a1; color:white; padding:20px 0; text-align:center; mar
 <div class="section">
 <h2>🎓 Buy SkillMint Complete Course</h2>
 <p><strong>Price:</strong> <input type="text" id="priceDisplay" readonly></p>
-<p><strong>Deposit Number:</strong> <input type="text" id="depositNumber" readonly>
-<span id="copyMsg">Number Copied!</span></p>
+<p><strong>Deposit Number:</strong> <input type="text" id="depositNumber" readonly> <span id="copyMsg">Copied!</span></p>
 
 <h3>Select Payment Method:</h3>
-<button class="payBtn" onclick="setMethod('JazzCash')" style="background:#2e7d32;">JazzCash</button>
-<button class="payBtn" onclick="setMethod('EasyPaisa')" style="background:#f9a825;">EasyPaisa</button>
-<button class="payBtn" onclick="setMethod('Binance')" style="background:#f3ba2f;">Binance</button>
+<button class="payBtn" onclick="setMethod('JazzCash')">JazzCash</button>
+<button class="payBtn" onclick="setMethod('EasyPaisa')">EasyPaisa</button>
+<button class="payBtn" onclick="setMethod('Binance')">Binance</button>
 
-<h3>Upload Payment Proof: <span class="tooltip">ℹ️
-  <span class="tooltiptext">Select screenshot of your payment and it will trigger the countdown.</span>
+<h3>Upload Payment Proof <span class="tooltip">ℹ️
+  <span class="tooltiptext">Select screenshot of your payment; timer will start automatically.</span>
 </span></h3>
-<input type="file" id="proof" accept="image/*"><br>
+<input type="file" id="proof" accept="image/*">
 
-<p style="font-size:14px;">Send screenshot via: 
+<p style="font-size:14px;">Send proof via: 
 <a href="mailto:example@example.com" style="color:#ff00ff;">Email</a> | 
 <a href="https://wa.me/03379827882" target="_blank" style="color:#00ff00;">WhatsApp</a> | 
 <a href="https://facebook.com/yourprofile" target="_blank" style="color:#1877f2;">Facebook</a> | 
@@ -69,7 +66,7 @@ footer { background:#0d47a1; color:white; padding:20px 0; text-align:center; mar
 </div>
 
 <div class="section">
-<h2 style="color:#00ffff;">How SkillMint Helps You</h2>
+<h2>How SkillMint Helps You</h2>
 <div class="card-container">
 <div class="card">
 <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
@@ -154,22 +151,8 @@ function startCountdown(duration){
             clearInterval(countdown);
             timerDiv.innerText="Payment verified! You can now access the course.";
             openBtn.disabled=false;
-            launchConfetti();
         }
     },1000);
-}
-
-// Confetti effect
-function launchConfetti(){
-    for(let i=0;i<100;i++){
-        let confetti=document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
-        confetti.style.left=Math.random()*window.innerWidth+'px';
-        confetti.style.top=Math.random()*window.innerHeight+'px';
-        document.body.appendChild(confetti);
-        setTimeout(()=>{ confetti.remove(); }, 3000);
-    }
 }
 
 openBtn.onclick = ()=>{
