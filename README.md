@@ -29,6 +29,12 @@ footer{background:#111;color:#fff;text-align:center;padding:20px;font-size:14px;
 .dark-mode nav{background:#222;}
 .dark-mode section{background:#1e1e1e;color:#e0e0e0;box-shadow:0 6px 15px rgba(0,0,0,0.3);}
 .dark-mode .card{background:#2a2a2a;border:1px solid #555;}
+/* Popup Guide */
+#earningGuide {display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);color:#fff;overflow-y:auto;z-index:9999;padding:20px;}
+#earningGuide .guide-content{max-width:800px;margin:50px auto;background:#222;border-radius:12px;padding:25px;box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+#earningGuide h2{color:#25D366;}
+#earningGuide button{background:#25D366;color:#fff;padding:10px 15px;border:none;border-radius:5px;margin-top:15px;cursor:pointer;}
+#earningGuide ul{margin-left:20px;}
 </style>
 </head>
 
@@ -38,6 +44,7 @@ footer{background:#111;color:#fff;text-align:center;padding:20px;font-size:14px;
 <h1>SkillMint Pro</h1>
 <p>Learn Skills. Build Online Income.</p>
 <button onclick="toggleDarkMode()" style="margin-top:15px;padding:10px 15px;border:none;border-radius:5px;cursor:pointer;">Toggle Dark Mode</button>
+<button onclick="openGuide()" style="margin-top:15px;padding:10px 15px;border:none;border-radius:5px;cursor:pointer;">View First Week Earning Guide</button>
 </header>
 
 <nav>
@@ -115,27 +122,43 @@ footer{background:#111;color:#fff;text-align:center;padding:20px;font-size:14px;
 
 <button id="scrollBtn" onclick="scrollToTop()">↑</button>
 
+<!-- Interactive Earning Guide Popup -->
+<div id="earningGuide">
+<div class="guide-content">
+<h2>🔥 First Week Earning Boost Guide</h2>
+<p>Follow these steps to maximize early earning:</p>
+<ul>
+<li><strong>GitHub Pages Live:</strong> Ensure your website link is live.</li>
+<li><strong>AdSense:</strong> Apply & integrate code in placeholder divs.</li>
+<li><strong>Affiliate Links:</strong> Replace buttons with high-converting affiliate URLs.</li>
+<li><strong>WhatsApp Services:</strong> Offer small services, respond quickly to clients.</li>
+<li><strong>Traffic:</strong> Share link on social media, WhatsApp, Quora, Reddit.</li>
+<li><strong>Blog Updates:</strong> Post small guides/news to support AdSense & SEO.</li>
+<li><strong>Consistency:</strong> Daily updates, check analytics, optimize buttons.</li>
+<li><strong>Track & Improve:</strong> Optimize clicks, update content for better conversion.</li>
+</ul>
+<button onclick="closeGuide()">Close Guide</button>
+</div>
+</div>
+
 <script>
 // Dark Mode Toggle
-function toggleDarkMode(){
-  document.body.classList.toggle("dark-mode");
-}
+function toggleDarkMode(){document.body.classList.toggle("dark-mode");}
 
 // Scroll-to-top button
-const scrollBtn = document.getElementById("scrollBtn");
-window.onscroll = function(){
-  if(document.body.scrollTop > 200 || document.documentElement.scrollTop > 200){
-    scrollBtn.style.display="block";
-  } else {
-    scrollBtn.style.display="none";
-  }
+const scrollBtn=document.getElementById("scrollBtn");
+window.onscroll=function(){
+  if(document.body.scrollTop>200||document.documentElement.scrollTop>200){scrollBtn.style.display="block";}
+  else{scrollBtn.style.display="none";}
 };
-function scrollToTop(){
-  window.scrollTo({top:0, behavior:'smooth'});
-}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
 
 // Dynamic Year in Footer
-document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("year").textContent=new Date().getFullYear();
+
+// Earning Guide Popup
+function openGuide(){document.getElementById("earningGuide").style.display="block";}
+function closeGuide(){document.getElementById("earningGuide").style.display="none";}
 </script>
 
 </body>
