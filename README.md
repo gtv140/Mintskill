@@ -5,10 +5,10 @@
 <title>SkillMint</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body { margin:0; font-family:'Roboto', sans-serif; background:#0a0a0a; color:white;}
-.container { max-width:1000px; margin:auto; padding:20px; }
-header { text-align:center; margin-bottom:30px; padding:10px;}
-header h1 { font-size:32px; color:#00ffff; margin-bottom:10px; }
+body {margin:0; font-family:'Roboto', sans-serif; background:#0a0a0a; color:white;}
+.container { max-width:1000px; margin:auto; padding:20px;}
+header { text-align:center; margin-bottom:25px; padding:10px;}
+header h1 { font-size:32px; color:#00ffff; margin-bottom:8px; }
 header p { color:#ccc; font-size:16px; }
 header img { width:80px; margin-top:10px; }
 .section { background:#111; border-radius:12px; padding:20px; margin-bottom:25px; }
@@ -29,6 +29,18 @@ footer { background:#0d47a1; color:white; padding:15px 10px; text-align:center; 
 .tooltip { position:relative; display:inline-block; cursor:pointer; }
 .tooltip .tooltiptext { visibility:hidden; width:220px; background:#333; color:#fff; text-align:center; border-radius:6px; padding:5px; position:absolute; z-index:1; bottom:125%; left:50%; transform:translateX(-50%); opacity:0; transition:opacity 0.3s; font-size:13px; }
 .tooltip:hover .tooltiptext { visibility:visible; opacity:1; }
+
+/* Testimonials */
+.testimonial { background:#1a1a1a; border-radius:12px; padding:15px; margin:10px 0; box-shadow:0 0 5px rgba(255,0,255,0.2);}
+.testimonial p{ font-size:14px; font-style:italic;}
+.testimonial h4{ font-size:14px; margin-top:5px; color:#00ffff;}
+
+/* FAQ */
+.faq { background:#222; border-radius:10px; padding:12px; margin:8px 0;}
+.faq h4{ color:#ff00ff; font-size:15px; cursor:pointer; margin-bottom:5px;}
+.faq p{ display:none; font-size:14px; padding-left:10px; color:#ccc;}
+
+/* Responsive */
 @media(max-width:600px){ 
     .card-container{ flex-direction:column; align-items:center; }
     h2{ font-size:20px; }
@@ -75,6 +87,19 @@ footer { background:#0d47a1; color:white; padding:15px 10px; text-align:center; 
 </div>
 </div>
 
+<!-- Testimonials -->
+<div class="section">
+<h2>What Our Learners Say</h2>
+<div class="testimonial">
+<p>"I learned YouTube and freelancing from scratch with SkillMint. Now I earn online confidently!"</p>
+<h4>- Ali R.</h4>
+</div>
+<div class="testimonial">
+<p>"Step-by-step tutorials are easy to follow, even for beginners. Highly recommended!"</p>
+<h4>- Sara K.</h4>
+</div>
+</div>
+
 <!-- Buy Course / Payment Section -->
 <div class="section">
 <h2>🎓 Buy SkillMint Complete Course</h2>
@@ -100,6 +125,19 @@ footer { background:#0d47a1; color:white; padding:15px 10px; text-align:center; 
 
 <div id="timer"></div>
 <button id="openCourse" disabled>Open Course</button>
+</div>
+
+<!-- FAQ -->
+<div class="section">
+<h2>Frequently Asked Questions</h2>
+<div class="faq" onclick="this.querySelector('p').style.display=this.querySelector('p').style.display==='block'?'none':'block'">
+<h4>How long does it take to verify payment?</h4>
+<p>Verification usually takes 5 minutes after uploading your proof.</p>
+</div>
+<div class="faq" onclick="this.querySelector('p').style.display=this.querySelector('p').style.display==='block'?'none':'block'">
+<h4>What if my payment proof doesn’t work?</h4>
+<p>Ensure the screenshot clearly shows the transaction details and try re-uploading.</p>
+</div>
 </div>
 
 <footer>
