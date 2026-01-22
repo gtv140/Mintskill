@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Roboto',sans-serif;background:#f4f6f9;color:#222;}
-header{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:#fff;padding:60px 20px;text-align:center;position:relative;}
+header{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:#fff;padding:60px 20px;text-align:center;}
 header h1{font-size:48px;margin-bottom:10px;}
 header p{font-size:20px;margin-bottom:20px;}
 header .cta-btn{padding:12px 25px;background:#25D366;color:#fff;border-radius:6px;font-weight:bold;}
@@ -80,19 +80,19 @@ iframe{width:100%;height:500px;border:1px solid #ccc;border-radius:8px;margin-to
 <h3>Binance / Crypto</h3>
 <p>Send payment directly to our wallet:</p>
 <p><strong>0xBfB9E5b2baA8202850DfFb2CB1D739278b83f47F</strong></p>
-<a class="btn" href="https://www.binance.com/en/pay?recipient=0xBfB9E5b2baA8202850DfFb2CB1D739278b83f47F" target="_blank">Pay with Binance</a>
+<button class="btn" onclick="payBinance()">Pay with Binance</button>
 </div>
 
 <div class="card">
 <h3>JazzCash</h3>
 <p>Send payment via JazzCash: <strong>03705519562</strong></p>
-<a class="btn" href="https://wa.me/03705519562?text=I%20have%20sent%20payment%20via%20JazzCash" target="_blank">Confirm Payment</a>
+<button class="btn" onclick="payJazzCash()">Pay with JazzCash</button>
 </div>
 
 <div class="card">
 <h3>EasyPaisa</h3>
 <p>Send payment via EasyPaisa: <strong>03379827882</strong></p>
-<a class="btn" href="https://wa.me/03379827882?text=I%20have%20sent%20payment%20via%20EasyPaisa" target="_blank">Confirm Payment</a>
+<button class="btn" onclick="payEasyPaisa()">Pay with EasyPaisa</button>
 </div>
 
 <div class="card">
@@ -126,8 +126,25 @@ iframe{width:100%;height:500px;border:1px solid #ccc;border-radius:8px;margin-to
 </section>
 
 <script>
+// Payment buttons auto-copy + app open
+function payJazzCash(){
+  navigator.clipboard.writeText("03705519562");
+  alert("JazzCash number copied. Open app and paste.");
+  window.location.href = "intent://#Intent;scheme=jazzcash;package=com.techlogix.mobilinkcustomer;end";
+}
+function payEasyPaisa(){
+  navigator.clipboard.writeText("03379827882");
+  alert("EasyPaisa number copied. Open app and paste.");
+  window.location.href = "intent://#Intent;scheme=easypaisa;package=pk.com.telenor.phoenix;end";
+}
+function payBinance(){
+  navigator.clipboard.writeText("0xBfB9E5b2baA8202850DfFb2CB1D739278b83f47F");
+  alert("Wallet address copied. Open Binance app and paste.");
+  window.location.href = "https://www.binance.com/en";
+}
+
 // Countdown Timer with Local Storage
-let timerDuration = 5*60; // 5 minutes in seconds
+let timerDuration = 5*60; // 5 min
 let timerDisplay = document.getElementById('timerDisplay');
 let downloadBtn = document.getElementById('downloadBtn');
 
