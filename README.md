@@ -26,6 +26,9 @@
       background: #111;
       padding: 12px;
       text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
     nav a {
       color: #fff;
@@ -53,7 +56,9 @@
       padding: 20px;
       border-radius: 10px;
       border: 1px solid #e5e7eb;
+      transition: transform 0.3s ease;
     }
+    .card:hover { transform: translateY(-5px); }
     .btn {
       display: inline-block;
       margin-top: 15px;
@@ -64,13 +69,18 @@
       border-radius: 6px;
       font-weight: bold;
       font-size: 14px;
+      transition: background 0.3s ease;
     }
+    .btn:hover { background: #128C7E; }
     footer {
       background: #111;
       color: #fff;
       text-align: center;
       padding: 20px;
       font-size: 14px;
+    }
+    @media(max-width:600px){
+      nav a { display:block; margin:8px 0; }
     }
   </style>
 </head>
@@ -93,9 +103,8 @@
 <section id="about">
   <h2>About SkillMint</h2>
   <p>
-    SkillMint is a digital platform created to help beginners learn useful
-    online skills and turn them into real income.
-    No fake promises, no shortcuts — only practical methods.
+    SkillMint is a digital platform designed to help beginners learn valuable online skills
+    and convert them into real income. No fake promises — only tested strategies.
   </p>
 </section>
 
@@ -104,15 +113,15 @@
   <div class="grid">
     <div class="card">
       <h3>Google AdSense</h3>
-      <p>Create quality content, get traffic, and earn passive income from ads.</p>
+      <p>Create quality content, drive traffic, and earn passive income through ads.</p>
     </div>
     <div class="card">
       <h3>Affiliate Marketing</h3>
-      <p>Promote trusted tools and earn commission on every successful sale.</p>
+      <p>Promote trusted tools & products and earn commission on sales.</p>
     </div>
     <div class="card">
       <h3>Digital Services</h3>
-      <p>Sell services like website setup, SEO, and design.</p>
+      <p>Offer services like website setup, YouTube SEO, and design.</p>
     </div>
   </div>
 </section>
@@ -121,9 +130,9 @@
   <h2>🛠 Services We Offer</h2>
   <ul>
     <li>Website Design & GitHub Pages Setup</li>
-    <li>YouTube SEO & Channel Growth</li>
+    <li>YouTube SEO & Channel Optimization</li>
     <li>Thumbnail & Logo Design</li>
-    <li>Affiliate Website Setup</li>
+    <li>Affiliate Website Creation</li>
   </ul>
   <a class="btn" href="https://wa.me/923000000000">Contact on WhatsApp</a>
 </section>
@@ -131,8 +140,8 @@
 <section id="affiliate">
   <h2>🔥 Recommended Tools</h2>
   <p>
-    We recommend useful platforms and tools for online earning.
-    When you purchase through our links, we may earn a small commission.
+    We suggest trusted tools and platforms for online earning. Using our links
+    may earn us a small commission without affecting your price.
   </p>
   <a class="btn" href="#">Visit Affiliate Offer</a>
 </section>
@@ -146,8 +155,8 @@
 <section>
   <h2>📄 Legal Pages (AdSense Ready)</h2>
   <p>
-    <strong>Privacy Policy:</strong> We respect user privacy and do not misuse personal data.<br><br>
-    <strong>Disclaimer:</strong> Earnings depend on effort, skills, and traffic. No guaranteed income.
+    <strong>Privacy Policy:</strong> We respect user privacy and never misuse personal data.<br><br>
+    <strong>Disclaimer:</strong> Earnings depend on effort, traffic, and skills. No guaranteed income.
   </p>
 </section>
 
