@@ -11,44 +11,46 @@ a{text-decoration:none;color:inherit;}
 .container{max-width:1000px;margin:auto;padding:20px;}
 
 /* Header */
-header{text-align:center;margin-bottom:30px;}
+header{text-align:center;margin-bottom:30px;position:relative;}
 header h1{font-size:32px;color:#222;font-weight:700;margin-bottom:8px;}
 header p{font-size:16px;color:#555;}
+header img{border-radius:50%;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
 
 /* Sections */
 .section{margin-bottom:25px;}
-h2{color:#333;margin-bottom:15px;text-align:center;font-size:22px;}
+h2{color:#333;margin-bottom:15px;text-align:center;font-size:22px;display:flex;align-items:center;justify-content:center;gap:8px;}
+h2 img{width:25px;height:25px;}
 
 /* Cards */
 .card-container{display:flex;flex-wrap:wrap;justify-content:center;gap:15px;}
-.card{background:white;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.1);padding:15px;width:220px;transition:0.3s;}
-.card:hover{box-shadow:0 6px 20px rgba(0,0,0,0.15);}
+.card{background:white;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1);padding:20px;width:220px;transition:0.3s;position:relative;}
+.card:hover{box-shadow:0 8px 25px rgba(0,0,0,0.15);}
 .card img{width:50px;height:50px;margin-bottom:10px;}
-.card h3{color:#222;margin-bottom:6px;font-size:16px;}
+.card h3{color:#222;margin-bottom:6px;font-size:16px;display:flex;align-items:center;gap:5px;}
 .card p{font-size:14px;color:#555;}
 
 /* Payment & Inputs */
-.payBtn{padding:12px 0;margin:5px 0;border:none;border-radius:8px;color:white;background:#007BFF;cursor:pointer;font-weight:bold;width:100%;transition:0.3s;}
-.payBtn:hover{background:#0056b3;}
-#openCourse{padding:12px 0;font-size:16px;border:none;border-radius:8px;background:#28a745;color:white;cursor:pointer;width:100%;margin-top:10px;transition:0.3s;}
-#openCourse:hover{background:#218838;}
-input[type=file], input[type=text]{padding:10px;width:95%;border-radius:6px;border:1px solid #ccc;margin:5px auto;display:block;}
+.payBtn{padding:12px 0;margin:5px 0;border:none;border-radius:12px;color:white;background:linear-gradient(45deg,#007BFF,#00A3FF);cursor:pointer;font-weight:bold;width:100%;transition:0.3s;box-shadow:0 3px 10px rgba(0,0,0,0.15);}
+.payBtn:hover{background:linear-gradient(45deg,#0056b3,#007ACC);}
+#openCourse{padding:12px 0;font-size:16px;border:none;border-radius:12px;background:linear-gradient(45deg,#28a745,#3cd658);color:white;cursor:pointer;width:100%;margin-top:10px;transition:0.3s;box-shadow:0 3px 10px rgba(0,0,0,0.15);}
+#openCourse:hover{background:linear-gradient(45deg,#218838,#2ecc44);}
+input[type=file], input[type=text]{padding:10px;width:95%;border-radius:8px;border:1px solid #ccc;margin:5px auto;display:block;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
 
 /* Testimonials */
-.testimonial{background:white;border-radius:10px;padding:12px;margin:10px 0;box-shadow:0 3px 10px rgba(0,0,0,0.1);}
+.testimonial{background:white;border-radius:12px;padding:15px;margin:10px 0;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
 .testimonial p{font-style:italic;color:#555;font-size:14px;}
 .testimonial h4{margin-top:8px;color:#007BFF;font-size:14px;text-align:right;}
 
 /* FAQ */
-.faq{background:#fff;border-radius:8px;padding:10px;margin:8px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
-.faq h4{cursor:pointer;color:#007BFF;}
+.faq{background:#fff;border-radius:10px;padding:12px;margin:8px 0;box-shadow:0 2px 10px rgba(0,0,0,0.08);}
+.faq h4{cursor:pointer;color:#007BFF;display:flex;align-items:center;gap:5px;}
 .faq p{display:none;padding-left:10px;color:#555;font-size:14px;}
 
 /* Chatbot */
-#chatUserInput{padding:10px;width:95%;border-radius:6px;border:1px solid #ccc;margin-bottom:8px;}
+#chatUserInput{padding:10px;width:95%;border-radius:8px;border:1px solid #ccc;margin-bottom:8px;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
 
 /* Footer */
-footer{background:#222;color:white;padding:15px 10px;text-align:center;border-radius:8px;font-size:14px;margin-top:20px;}
+footer{background:#222;color:white;padding:15px 10px;text-align:center;border-radius:10px;font-size:14px;margin-top:20px;}
 
 /* Responsive */
 @media(max-width:600px){
@@ -72,26 +74,26 @@ footer{background:#222;color:white;padding:15px 10px;text-align:center;border-ra
 
 <!-- How SkillMint Helps -->
 <div class="section">
-<h2>How SkillMint Helps You</h2>
+<h2><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="icon"> How SkillMint Helps You</h2>
 <div class="card-container">
 <div class="card">
 <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
-<h3>Learn Skills</h3>
+<h3><img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="icon"> Learn Skills</h3>
 <p>Master YouTube, Freelancing, Affiliate Marketing & Social Media from scratch.</p>
 </div>
 <div class="card">
 <img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" alt="Step">
-<h3>Step by Step</h3>
+<h3><img src="https://cdn-icons-png.flaticon.com/512/565/565313.png" alt="icon"> Step by Step</h3>
 <p>Beginner-friendly tutorials with practical examples & exercises.</p>
 </div>
 <div class="card">
 <img src="https://cdn-icons-png.flaticon.com/512/1170/1170576.png" alt="Money">
-<h3>Earn Online</h3>
+<h3><img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" alt="icon"> Earn Online</h3>
 <p>Apply your skills to start freelancing, monetize YouTube & affiliate marketing safely.</p>
 </div>
 <div class="card">
 <img src="https://cdn-icons-png.flaticon.com/512/565/565313.png" alt="Support">
-<h3>Guidance & Support</h3>
+<h3><img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="icon"> Guidance & Support</h3>
 <p>Clear instructions, proof verification, and real-time course access.</p>
 </div>
 </div>
@@ -99,7 +101,7 @@ footer{background:#222;color:white;padding:15px 10px;text-align:center;border-ra
 
 <!-- Testimonials -->
 <div class="section">
-<h2>What Our Learners Say</h2>
+<h2><img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" alt="icon"> What Our Learners Say</h2>
 <div class="testimonial">
 <p>"I learned YouTube and freelancing from scratch with SkillMint. Now I earn online confidently!"</p>
 <h4>- Ali R.</h4>
@@ -112,7 +114,7 @@ footer{background:#222;color:white;padding:15px 10px;text-align:center;border-ra
 
 <!-- Buy Course Section -->
 <div class="section">
-<h2>Buy SkillMint Complete Course</h2>
+<h2><img src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png" alt="icon"> Buy SkillMint Complete Course</h2>
 <p><strong>Price:</strong> <input type="text" id="priceDisplay" readonly></p>
 <p><strong>Deposit Number:</strong> <input type="text" id="depositNumber" readonly> <span id="copyMsg">Copied!</span></p>
 <h3>Select Payment Method:</h3>
@@ -133,22 +135,22 @@ footer{background:#222;color:white;padding:15px 10px;text-align:center;border-ra
 
 <!-- FAQ -->
 <div class="section">
-<h2>Frequently Asked Questions</h2>
+<h2><img src="https://cdn-icons-png.flaticon.com/512/1828/1828861.png" alt="icon"> Frequently Asked Questions</h2>
 <div class="faq" onclick="this.querySelector('p').style.display=this.querySelector('p').style.display==='block'?'none':'block'">
-<h4>How long does it take to verify payment?</h4>
+<h4><img src="https://cdn-icons-png.flaticon.com/512/1828/1828861.png" alt="icon"> How long does it take to verify payment?</h4>
 <p>Verification usually takes 5 minutes after uploading your proof.</p>
 </div>
 <div class="faq" onclick="this.querySelector('p').style.display=this.querySelector('p').style.display==='block'?'none':'block'">
-<h4>What if my payment proof doesn’t work?</h4>
+<h4><img src="https://cdn-icons-png.flaticon.com/512/1828/1828861.png" alt="icon"> What if my payment proof doesn’t work?</h4>
 <p>Ensure the screenshot clearly shows the transaction details and try re-uploading.</p>
 </div>
 </div>
 
 <!-- Chat Bot Section -->
 <div class="section">
-<h2>Ask SkillMint Bot ❓</h2>
+<h2><img src="https://cdn-icons-png.flaticon.com/512/1380/1380338.png" alt="icon"> Ask SkillMint Bot ❓</h2>
 <input type="text" id="chatUserInput" placeholder="Type your question here...">
-<button onclick="chatBotReply()" style="padding:10px 20px; background:#007BFF; color:white; border:none; border-radius:8px; cursor:pointer;">Ask</button>
+<button onclick="chatBotReply()" style="padding:10px 20px; background:linear-gradient(45deg,#007BFF,#00A3FF); color:white; border:none; border-radius:8px; cursor:pointer;">Ask</button>
 <p id="chatResponse" style="margin-top:15px; color:#333;"></p>
 </div>
 
