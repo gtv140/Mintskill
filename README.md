@@ -1,182 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Lucky Casino Full Demo</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body {margin:0; padding:0; overflow:hidden; background:#0a0a0a; font-family:Arial;}
-h1{color:#ff00ff;text-align:center; text-shadow:0 0 20px #ff00ff; margin-top:5px;}
-#coins{position:absolute; top:10px; left:50%; transform:translateX(-50%); font-size:22px; color:#ffcc00; text-shadow:0 0 20px #ffcc00; z-index:200;}
-#gameContainer{position:relative; width:100%; height:100vh; display:flex; flex-direction:column;}
-canvas{background:#0a0a0a; flex:1; display:block;}
-#menu{position:absolute; top:50px; left:50%; transform:translateX(-50%); display:flex; gap:15px; z-index:200;}
-#menu button{padding:10px 20px; border:none; border-radius:8px; font-weight:bold; color:#0a0a0a; background:#ff00ff; box-shadow:0 0 15px #ff00ff; cursor:pointer;}
-.bottomUI{background:rgba(0,0,0,0.9); padding:12px; display:flex; justify-content:center; align-items:center; flex-wrap:wrap; box-shadow:0 -2px 15px #00ffff;}
-.bottomUI input, .bottomUI select, .bottomUI button{margin:5px; padding:10px; border:none; border-radius:8px; font-weight:bold; color:#0a0a0a; cursor:pointer;}
-.start{background:#00ff99; box-shadow:0 0 15px #00ff99;}
-.cash{background:#ff00ff; box-shadow:0 0 15px #ff00ff;}
-#history,#botBox{position:absolute; right:10px; background:rgba(0,0,0,0.55); padding:12px; border-radius:12px; font-size:14px; color:#fff; text-shadow:0 0 5px #0fffe0; max-height:250px; overflow-y:auto;}
-#botBox{top:180px;} #history{top:470px;}
-</style>
+  <meta charset="UTF-8">
+  <title>SkillMint – Learn Skills. Build Income.</title>
+  <meta name="description" content="SkillMint is a professional platform to learn digital skills and earn online via ads, affiliate marketing, and services.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f9;
+      color: #222;
+    }
+    header {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      padding: 50px 20px;
+      text-align: center;
+    }
+    header h1 { margin: 0; font-size: 42px; }
+    header p { margin-top: 10px; font-size: 18px; opacity: 0.9; }
+    nav {
+      background: #111;
+      padding: 12px;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    section {
+      background: #fff;
+      margin: 25px auto;
+      padding: 30px;
+      max-width: 1000px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    }
+    h2 { margin-top: 0; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 22px;
+      background: #25D366;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    footer {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>Lucky Casino App</h1>
-<div id="coins">Coins: 100</div>
-<div id="gameContainer">
-  <canvas id="gameCanvas"></canvas>
-  <div id="menu">
-    <button onclick="selectGame('aviator')">Aviator</button>
-    <button onclick="selectGame('slots')">Slots</button>
-    <button onclick="selectGame('dice')">Dice</button>
-    <button onclick="selectGame('coinflip')">Coin Flip</button>
-    <button onclick="selectGame('spin')">Spin / Gift</button>
+<header>
+  <h1>SkillMint</h1>
+  <p>Learn Skills. Build Income.</p>
+</header>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="#earn">Earning</a>
+  <a href="#services">Services</a>
+  <a href="#affiliate">Affiliate</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="about">
+  <h2>About SkillMint</h2>
+  <p>
+    SkillMint is a digital platform created to help beginners learn useful
+    online skills and turn them into real income.
+    No fake promises, no shortcuts — only practical methods.
+  </p>
+</section>
+
+<section id="earn">
+  <h2>💰 How You Can Earn</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Google AdSense</h3>
+      <p>Create quality content, get traffic, and earn passive income from ads.</p>
+    </div>
+    <div class="card">
+      <h3>Affiliate Marketing</h3>
+      <p>Promote trusted tools and earn commission on every successful sale.</p>
+    </div>
+    <div class="card">
+      <h3>Digital Services</h3>
+      <p>Sell services like website setup, SEO, and design.</p>
+    </div>
   </div>
-  <div class="bottomUI">
-    Bet Amount: <input type="number" id="betAmount" value="10" min="10" max="1000" step="10">
-    Multiplier: <select id="betMultiplier"><option>1.5</option><option>2</option><option>3</option><option>5</option></select>
-    <button class="start" onclick="startRound()">Start / Spin</button>
-    <button class="cash" onclick="cashOut()">Cash Out</button>
-  </div>
-  <div id="botBox">Bots Info:</div>
-  <div id="history">History:</div>
-</div>
+</section>
 
-<script>
-// --- Canvas & Variables ---
-let canvas=document.getElementById('gameCanvas');
-let ctx=canvas.getContext('2d');
-canvas.width=window.innerWidth; canvas.height=window.innerHeight-200;
-let coins=100; document.getElementById('coins').innerText='Coins: '+coins;
-let currentGame='aviator';
-let history=[],botUsers=[];
+<section id="services">
+  <h2>🛠 Services We Offer</h2>
+  <ul>
+    <li>Website Design & GitHub Pages Setup</li>
+    <li>YouTube SEO & Channel Growth</li>
+    <li>Thumbnail & Logo Design</li>
+    <li>Affiliate Website Setup</li>
+  </ul>
+  <a class="btn" href="https://wa.me/923000000000">Contact on WhatsApp</a>
+</section>
 
-// --- Game States ---
-let aviator={running:false,multiplier:1,crashAt:0};
-let slots={symbols:['🍒','🍋','🍉','🍇','⭐'], reels:[0,0,0], running:false};
-let dice={running:false,roll:0};
-let coinflip={running:false,result:''};
-let spin={running:false,result:''};
+<section id="affiliate">
+  <h2>🔥 Recommended Tools</h2>
+  <p>
+    We recommend useful platforms and tools for online earning.
+    When you purchase through our links, we may earn a small commission.
+  </p>
+  <a class="btn" href="#">Visit Affiliate Offer</a>
+</section>
 
-// --- Select / Reset ---
-function selectGame(game){currentGame=game; resetGame();}
-function resetGame(){aviator.running=false; slots.running=false; dice.running=false; coinflip.running=false; spin.running=false; ctx.clearRect(0,0,canvas.width,canvas.height);}
+<section id="contact">
+  <h2>📞 Contact & Support</h2>
+  <p>Email: support@skillmint.co</p>
+  <p>WhatsApp: +92 300 0000000</p>
+</section>
 
-// --- History ---
-function updateHistory(){document.getElementById('history').innerHTML='History:<br>'+history.slice(-15).join('<br>');}
+<section>
+  <h2>📄 Legal Pages (AdSense Ready)</h2>
+  <p>
+    <strong>Privacy Policy:</strong> We respect user privacy and do not misuse personal data.<br><br>
+    <strong>Disclaimer:</strong> Earnings depend on effort, skills, and traffic. No guaranteed income.
+  </p>
+</section>
 
-// --- Start Round ---
-function startRound(){
-  let amt=parseInt(document.getElementById('betAmount').value);
-  let mul=parseFloat(document.getElementById('betMultiplier').value);
-  if(amt>coins){alert("Not enough coins"); return;}
-  coins-=amt; document.getElementById('coins').innerText='Coins: '+coins;
-  if(currentGame=='aviator'){startAviator(amt,mul);}
-  else if(currentGame=='slots'){startSlots(amt);}
-  else if(currentGame=='dice'){startDice(amt,mul);}
-  else if(currentGame=='coinflip'){startCoinFlip(amt);}
-  else if(currentGame=='spin'){startSpin();}
-}
+<footer>
+  <p>© 2026 SkillMint. All Rights Reserved.</p>
+</footer>
 
-// --- Cash Out ---
-function cashOut(){
-  if(currentGame=='aviator' && aviator.running){
-    aviator.running=false;
-    let betAmt=parseInt(document.getElementById('betAmount').value);
-    coins += Math.floor(aviator.multiplier*betAmt);
-    document.getElementById('coins').innerText='Coins: '+coins;
-    history.push('Cashed out @ '+aviator.multiplier.toFixed(2)+'x');
-    updateHistory(); playCashoutSound(); triggerCoinRain();
-  }
-}
-
-// --- Aviator ---
-function startAviator(amount,mul){
-  aviator.running=true;
-  aviator.multiplier=1;
-  aviator.crashAt=Math.random()*5+1.5;
-  history.push('Aviator round started'); updateHistory();
-  let interval=setInterval(()=>{
-    if(!aviator.running){clearInterval(interval); return;}
-    aviator.multiplier += 0.02*(1+aviator.multiplier/10);
-    drawAviator();
-    if(aviator.multiplier >= aviator.crashAt){
-      aviator.running=false;
-      history.push('CRASH @ '+aviator.crashAt.toFixed(2)+'x'); updateHistory();
-      playCrashSound(); triggerCoinRain();
-      clearInterval(interval);
-    }
-  },50);
-}
-function drawAviator(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  drawNeonParticles(); drawCoinsParticles(); drawJackpot();
-  ctx.strokeStyle='#ff00ff'; ctx.lineWidth=4; ctx.beginPath();
-  ctx.moveTo(50,canvas.height-50);
-  let y=canvas.height-50-aviator.multiplier*50;
-  ctx.lineTo(canvas.width-50,y); ctx.stroke();
-  ctx.fillStyle='#00ffff'; ctx.font='50px Arial'; ctx.fillText('✈️',canvas.width/2-25,y-50);
-  ctx.fillStyle='#ffcc00'; ctx.font='40px Arial'; ctx.fillText(aviator.multiplier.toFixed(2)+'x',canvas.width/2-50,y-100);
-}
-
-// --- Slots ---
-function startSlots(amount){
-  slots.running=true;
-  slots.reels=[Math.floor(Math.random()*slots.symbols.length),Math.floor(Math.random()*slots.symbols.length),Math.floor(Math.random()*slots.symbols.length)];
-  drawSlots();
-  setTimeout(()=>{
-    let win=false;
-    if(slots.reels[0]==slots.reels[1]&&slots.reels[1]==slots.reels[2]){win=true; coins+=amount*3; triggerJackpot();}
-    history.push('Slots: '+slots.symbols[slots.reels[0]]+'|'+slots.symbols[slots.reels[1]]+'|'+slots.symbols[slots.reels[2]]+(win?' WIN':' LOSS'));
-    updateHistory(); document.getElementById('coins').innerText='Coins: '+coins; slots.running=false;
-  },1000);
-}
-function drawSlots(){ctx.clearRect(0,0,canvas.width,canvas.height); drawNeonParticles(); drawCoinsParticles(); drawJackpot();
-ctx.font='80px Arial'; ctx.fillStyle='#ffcc00'; ctx.fillText(slots.symbols[slots.reels[0]],canvas.width/2-120,canvas.height/2);
-ctx.fillText(slots.symbols[slots.reels[1]],canvas.width/2,canvas.height/2); ctx.fillText(slots.symbols[slots.reels[2]],canvas.width/2+120,canvas.height/2);}
-
-// --- Dice ---
-function startDice(amount,mul){dice.running=true; dice.roll=Math.floor(Math.random()*6)+1; drawDice();
-setTimeout(()=>{let win=dice.roll>=4;if(win) coins+=amount*mul;if(win) triggerCoinRain();history.push('Dice rolled '+dice.roll+(win?' WIN':' LOSS')); updateHistory(); document.getElementById('coins').innerText='Coins: '+coins; dice.running=false;},1000);}
-function drawDice(){ctx.clearRect(0,0,canvas.width,canvas.height); drawNeonParticles(); drawCoinsParticles(); drawJackpot(); ctx.font='100px Arial'; ctx.fillStyle='#00ffcc'; ctx.fillText('🎲 '+dice.roll,canvas.width/2-80,canvas.height/2);}
-
-// --- Coin Flip ---
-function startCoinFlip(amount){coinflip.running=true; coinflip.result=Math.random()>0.5?'Heads':'Tails'; drawCoinFlip();
-setTimeout(()=>{let win=Math.random()>0.5;if(win) coins+=amount*2;if(win) triggerCoinRain(); history.push('Coin Flip: '+coinflip.result+(win?' WIN':' LOSS')); updateHistory(); document.getElementById('coins').innerText='Coins: '+coins; coinflip.running=false;},1000);}
-function drawCoinFlip(){ctx.clearRect(0,0,canvas.width,canvas.height); drawNeonParticles(); drawCoinsParticles(); drawJackpot(); ctx.font='80px Arial'; ctx.fillStyle='#ff00ff'; ctx.fillText('🪙 '+coinflip.result,canvas.width/2-80,canvas.height/2);}
-
-// --- Spin ---
-function startSpin(){spin.running=true; let gifts=[50,100,150,200,500]; spin.result=gifts[Math.floor(Math.random()*gifts.length)]; drawSpin();
-setTimeout(()=>{coins+=spin.result;if(spin.result>=200) triggerJackpot(); document.getElementById('coins').innerText='Coins: '+coins; history.push('Spin Gift: '+spin.result+' coins'); updateHistory(); spin.running=false;},1000);}
-function drawSpin(){ctx.clearRect(0,0,canvas.width,canvas.height); drawNeonParticles(); drawCoinsParticles(); drawJackpot(); ctx.font='80px Arial'; ctx.fillStyle='#00ff99'; ctx.fillText('🎁 +'+spin.result+' Coins!',canvas.width/2-150,canvas.height/2);}
-
-// --- Bots ---
-function generateBots(num){botUsers=[]; for(let i=0;i<num;i++){botUsers.push({name:'Bot'+(i+1), bet:Math.floor(Math.random()*5000)+15, game:['aviator','slots','dice','coinflip'][Math.floor(Math.random()*4)], cashOut:parseFloat((Math.random()*5+1).toFixed(2))});} updateBots();}
-function updateBots(){let botDiv=document.getElementById('botBox'); botDiv.innerHTML='Bots Info:<br>'; botUsers.forEach(bot=>{botDiv.innerHTML+=bot.name+' | Bet: '+bot.bet+' | Game: '+bot.game+' | CashOut: '+bot.cashOut+'x<br>';});}
-generateBots(50); setInterval(()=>{generateBots(50);},5000);
-
-// --- Neon / Coin / Jackpot ---
-let neonParticles=[]; for(let i=0;i<100;i++){neonParticles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,size:2+Math.random()*4,vx:(Math.random()-0.5)*1,vy:(Math.random()-0.5)*1,color:'hsl('+(Math.random()*360)+',100%,50%)'});}
-let coinsParticles=[],jackpotParticles=[];
-function drawNeonParticles(){neonParticles.forEach(p=>{ctx.fillStyle=p.color; ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill(); p.x+=p.vx; p.y+=p.vy; if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;});}
-function spawnCoins(num){for(let i=0;i<num;i++){coinsParticles.push({x:Math.random()*canvas.width,y:-50,speed:2+Math.random()*3,symbol:'💰',size:20+Math.random()*20});}}
-function drawCoinsParticles(){coinsParticles.forEach(p=>{ctx.font=p.size+'px Arial'; ctx.fillStyle='#ffff00'; ctx.fillText(p.symbol,p.x,p.y); p.y+=p.speed;}); coinsParticles=coinsParticles.filter(p=>p.y<canvas.height+50);}
-function spawnJackpot(){for(let i=0;i<50;i++){jackpotParticles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*5,vy:(Math.random()-0.5)*5,size:5+Math.random()*10,color:'hsl('+(Math.random()*360)+',100%,50%)'});}}
-function drawJackpot(){jackpotParticles.forEach(p=>{ctx.fillStyle=p.color; ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill(); p.x+=p.vx; p.y+=p.vy;}); jackpotParticles=jackpotParticles.filter(p=>p.size>0);}
-
-// --- Animate ---
-function animate(){ctx.clearRect(0,0,canvas.width,canvas.height); drawNeonParticles(); drawCoinsParticles(); drawJackpot();
-if(currentGame=='aviator'&&aviator.running) drawAviator(); else if(currentGame=='slots'&&slots.running) drawSlots();
-else if(currentGame=='dice'&&dice.running) drawDice(); else if(currentGame=='coinflip'&&coinflip.running) drawCoinFlip(); else if(currentGame=='spin'&&spin.running) drawSpin();
-requestAnimationFrame(animate);}
-animate();
-
-// --- Sounds ---
-function playCrashSound(){let audio=new Audio('https://www.myinstants.com/media/sounds/airplane-crash.mp3'); audio.play();}
-function playCashoutSound(){let audio=new Audio('https://www.myinstants.com/media/sounds/coin-drop-1.mp3'); audio.play();}
-function triggerCoinRain(){spawnCoins(50); let audio=new Audio('https://www.myinstants.com/media/sounds/coin-drop-1.mp3'); audio.play();}
-function triggerJackpot(){spawnJackpot(); let audio=new Audio('https://www.myinstants.com/media/sounds/jackpot.mp3'); audio.play();}
-</script>
 </body>
 </html>
