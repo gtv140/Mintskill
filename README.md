@@ -7,12 +7,12 @@ body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f2f5f9;color:#
 header{background:linear-gradient(135deg,#0f9d58,#0b7d46);color:#fff;padding:18px 15px;text-align:center;border-bottom-left-radius:20px;border-bottom-right-radius:20px;}
 header h1{margin:0;font-size:22px;}
 header p{margin:4px 0;font-size:12px;}
-.container{padding:10px;}
-.card{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 6px 18px rgba(0,0,0,0.08);transition:transform 0.3s;}
+.container{padding:12px;}
+.card{background:#fff;border-radius:16px;padding:14px;margin-bottom:14px;box-shadow:0 6px 18px rgba(0,0,0,0.08);transition:transform 0.3s;}
 .card:hover{transform:scale(1.03);}
-.icons{display:flex;justify-content:space-around;margin-bottom:12px;}
+.icons{display:flex;justify-content:space-around;margin:10px 0;}
 .icon{cursor:pointer;font-size:12px;text-align:center;flex:1;}
-.icon img{width:40px;margin-bottom:4px;}
+.icon img{width:42px;margin-bottom:4px;}
 button{background:linear-gradient(135deg,#0f9d58,#0b7d46);color:#fff;border:none;padding:10px 12px;border-radius:10px;cursor:pointer;margin-top:6px;width:100%;}
 button:hover{opacity:.9;}
 input{width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #ccc;}
@@ -27,13 +27,16 @@ input{width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #
 .dark-mode{background:#121212;color:#fff;}
 .dark-mode .card{background:#1e1e1e;color:#fff;}
 .dark-mode input{background:#222;color:#fff;border:1px solid #444;}
-.carousel{overflow:hidden;height:120px;border-radius:12px;margin-bottom:12px;position:relative;}
+.carousel{overflow:hidden;height:140px;border-radius:12px;margin-bottom:14px;position:relative;}
 .carousel-inner{display:flex;width:300%;animation:slide 12s infinite;}
 .carousel-inner img{width:100%;flex-shrink:0;border-radius:12px;}
 @keyframes slide{0%,33%{transform:translateX(0);}33%,66%{transform:translateX(-33.33%);}66%,100%{transform:translateX(-66.66%);}}
 .review-box{overflow:hidden;height:100px;border-radius:12px;}
 .review-inner{display:flex;flex-direction:column;animation:scrollReviews 25s linear infinite;}
 @keyframes scrollReviews{0%{transform:translateY(0);}100%{transform:translateY(-100%);}}
+.course-grid{display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between;}
+.course-item{flex:1 1 30%;min-width:100px;}
+.course-item img{border-radius:10px;width:100%;}
 </style>
 </head>
 <body>
@@ -48,9 +51,9 @@ input{width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #
 <!-- Sliding Banner -->
 <div class="carousel">
 <div class="carousel-inner">
-<img src="https://picsum.photos/400/120?1">
-<img src="https://picsum.photos/400/120?2">
-<img src="https://picsum.photos/400/120?3">
+<img src="https://picsum.photos/400/140?1">
+<img src="https://picsum.photos/400/140?2">
+<img src="https://picsum.photos/400/140?3">
 </div>
 </div>
 
@@ -76,10 +79,10 @@ input{width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #
 
 <div id="courses" class="card">
 <h3>Popular Courses</h3>
-<div style="display:flex;gap:8px;flex-wrap:wrap;">
-<div style="flex:1;min-width:100px;"><img src="https://picsum.photos/200?1" style="border-radius:10px;width:100%;"><br>Digital Marketing<br><button onclick="buyCourse('Digital Marketing')">Buy</button></div>
-<div style="flex:1;min-width:100px;"><img src="https://picsum.photos/200?2" style="border-radius:10px;width:100%;"><br>Graphic Designing<br><button onclick="buyCourse('Graphic Designing')">Buy</button></div>
-<div style="flex:1;min-width:100px;"><img src="https://picsum.photos/200?3" style="border-radius:10px;width:100%;"><br>Web Development<br><button onclick="buyCourse('Web Development')">Buy</button></div>
+<div class="course-grid">
+<div class="course-item"><img src="https://picsum.photos/200?1"><br>Digital Marketing<br><button onclick="buyCourse('Digital Marketing')">Buy</button></div>
+<div class="course-item"><img src="https://picsum.photos/200?2"><br>Graphic Designing<br><button onclick="buyCourse('Graphic Designing')">Buy</button></div>
+<div class="course-item"><img src="https://picsum.photos/200?3"><br>Web Development<br><button onclick="buyCourse('Web Development')">Buy</button></div>
 </div>
 </div>
 
@@ -130,7 +133,6 @@ input{width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #
 </div>
 
 <script>
-// Scroll
 function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
 let selected="";
 function buyCourse(name){selected=name;selectedCourse.innerText="Selected Course: "+name;scrollToSection('buy');}
