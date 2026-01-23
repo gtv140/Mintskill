@@ -57,29 +57,38 @@ input{width:100%;padding:10px;border-radius:12px;border:1px solid #ccc;margin-to
   <h2>SkillMint</h2>
   <p>Learn Skills • Earn Online</p>
   <button onclick="toggleDark()">Dark Mode</button>
+  <button id="logoutBtn" onclick="logout()" style="display:none;margin-top:8px;">Logout</button>
+</div>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="section">
+  <div class="card">
+    <h3>Login / Signup</h3>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <button onclick="saveLogin()">Login / Signup</button>
+  </div>
 </div>
 
 <!-- DASHBOARD -->
-<div class="dashboard">
-  <div class="icon" onclick="openSec('courses')">
-    <img src="https://img.icons8.com/fluency/96/online-course.png">
-    <span>Courses</span>
-  </div>
-  <div class="icon" onclick="openSec('reviews')">
-    <img src="https://img.icons8.com/fluency/96/group.png">
-    <span>Reviews</span>
-  </div>
-  <div class="icon" onclick="openSec('payment')">
-    <img src="https://img.icons8.com/fluency/96/credit-card.png">
-    <span>Payment</span>
-  </div>
-  <div class="icon" onclick="openSec('ai')">
-    <img src="https://img.icons8.com/fluency/96/robot.png">
-    <span>AI Bot</span>
-  </div>
-  <div class="icon" onclick="openSec('login')">
-    <img src="https://img.icons8.com/fluency/96/user.png">
-    <span>Login</span>
+<div id="dashboard" class="section">
+  <div class="dashboard">
+    <div class="icon" onclick="openSec('courses')">
+      <img src="https://img.icons8.com/fluency/96/online-course.png">
+      <span>Courses</span>
+    </div>
+    <div class="icon" onclick="openSec('reviews')">
+      <img src="https://img.icons8.com/fluency/96/group.png">
+      <span>Reviews</span>
+    </div>
+    <div class="icon" onclick="openSec('payment')">
+      <img src="https://img.icons8.com/fluency/96/credit-card.png">
+      <span>Payment</span>
+    </div>
+    <div class="icon" onclick="openSec('ai')">
+      <img src="https://img.icons8.com/fluency/96/robot.png">
+      <span>AI Bot</span>
+    </div>
   </div>
 </div>
 
@@ -143,21 +152,11 @@ input{width:100%;padding:10px;border-radius:12px;border:1px solid #ccc;margin-to
   </div>
 </div>
 
-<!-- LOGIN -->
-<div id="login" class="section">
-  <div class="card">
-    <h3>Login / Signup</h3>
-    <input id="email" placeholder="Email">
-    <input id="pass" placeholder="Password">
-    <button onclick="saveLogin()">Login</button>
-  </div>
-</div>
-
 <!-- BOTTOM NAV -->
 <div class="nav">
   <div onclick="openSec('courses')">🏠 Home</div>
   <div onclick="openSec('payment')">💳 Pay</div>
-  <div onclick="openSec('login')">👤 Account</div>
+  <div onclick="openSec('ai')">🤖 AI</div>
 </div>
 
 <script>
@@ -166,17 +165,57 @@ setTimeout(()=>splash.style.display="none",1200)
 /* THEME */
 function toggleDark(){document.body.classList.toggle("dark")}
 
+/* LOGIN CHECK */
+function checkLogin(){
+  let login=JSON.parse(localStorage.getItem("login"))
+  if(login && login.username){
+    loginSuccess()
+  }else{
+    loginScreen.style.display="block"
+    dashboard.style.display="none"
+    logoutBtn.style.display="none"
+  }
+}
+
+/* LOGIN / SIGNUP */
+function saveLogin(){
+  let u=document.getElementById("username").value
+  let p=document.getElementById("password").value
+  if(u && p){
+    localStorage.setItem("login",JSON.stringify({username:u,password:p}))
+    alert("Login successful!")
+    loginSuccess()
+  }else alert("Enter username & password")
+}
+
+function loginSuccess(){
+  loginScreen.style.display="none"
+  dashboard.style.display="block"
+  logoutBtn.style.display="inline-block"
+  if(localStorage.getItem("lastSec")){
+    openSec(localStorage.getItem("lastSec"))
+  }
+}
+
+/* LOGOUT */
+function logout(){
+  localStorage.removeItem("login")
+  localStorage.removeItem("lastSec")
+  location.reload()
+}
+
 /* SECTIONS */
 function openSec(id){
+  if(!localStorage.getItem("login")) return alert("Please login first!")
   document.querySelectorAll('.section').forEach(s=>s.style.display="none")
+  if(id!="loginScreen") dashboard.style.display="block"
   document.getElementById(id).style.display="block"
-  localStorage.setItem("last",id)
+  localStorage.setItem("lastSec",id)
 }
-let last=localStorage.getItem("last")
-if(last)openSec(last)
 
-/* BUY */
+/* BUY COURSE */
 function buyCourse(name){
+  if(!localStorage.getItem("login")) return alert("Login first")
   localStorage.setItem("course",name)
   alert(name+" selected. Complete payment.")
   openSec("payment")
@@ -195,7 +234,6 @@ function startTimer(){
       clearInterval(x)
       timer.innerText="✔ Course Unlocked"
       alert("Course link activated!")
-      // Open course in new tab
       window.open("https://gtv140.github.io/SkillMint-complete-course-/","_blank")
       localStorage.removeItem("timer")
     }
@@ -234,15 +272,8 @@ function ask(){
   },700)
 }
 
-/* LOGIN */
-function saveLogin(){
-  let e=document.getElementById("email").value
-  let p=document.getElementById("pass").value
-  if(e && p){
-    localStorage.setItem("login",JSON.stringify({email:e,password:p}))
-    alert("Login saved (Demo only)")
-  }else alert("Fill email & password")
-}
+/* INIT */
+checkLogin()
 </script>
 
 </body>
