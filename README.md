@@ -1,33 +1,38 @@
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>SkillMint</title>
 <style>
-body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f2f5f9;color:#222;padding-bottom:70px;}
-header{background:linear-gradient(135deg,#0f9d58,#0b7d46);color:#fff;padding:20px;text-align:center;border-bottom-left-radius:20px;border-bottom-right-radius:20px;}
+body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f2f5f9;color:#222;overflow-x:hidden;}
+header{background:linear-gradient(135deg,#0f9d58,#0b7d46);color:#fff;padding:18px 15px;text-align:center;border-bottom-left-radius:20px;border-bottom-right-radius:20px;}
 header h1{margin:0;font-size:22px;}
 header p{margin:4px 0;font-size:12px;}
 .container{padding:10px;}
-.card{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 6px 18px rgba(0,0,0,0.08);}
+.card{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 6px 18px rgba(0,0,0,0.08);transition:transform 0.3s;}
+.card:hover{transform:scale(1.03);}
 .icons{display:flex;justify-content:space-around;margin-bottom:12px;}
 .icon{cursor:pointer;font-size:12px;text-align:center;flex:1;}
 .icon img{width:40px;margin-bottom:4px;}
 button{background:linear-gradient(135deg,#0f9d58,#0b7d46);color:#fff;border:none;padding:10px 12px;border-radius:10px;cursor:pointer;margin-top:6px;width:100%;}
 button:hover{opacity:.9;}
 input{width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #ccc;}
-#chatbot{position:fixed;bottom:70px;right:10px;width:90%;max-width:300px;background:#fff;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.3);display:flex;flex-direction:column;height:350px;}
+#chatbot{position:fixed;bottom:70px;right:10px;width:90%;max-width:300px;background:#fff;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.3);display:flex;flex-direction:column;height:350px;z-index:999;}
 #chatHeader{background:#0f9d58;color:#fff;padding:10px;text-align:center;cursor:pointer;font-size:14px;border-top-left-radius:16px;border-top-right-radius:16px;}
 #chatBody{flex:1;padding:8px;overflow-y:auto;font-size:13px;}
 #chatInput{display:flex;border-top:1px solid #ccc;}
 #chatInput input{flex:1;padding:6px;border:none;font-size:13px;}
 #chatInput button{padding:6px;background:#0f9d58;color:#fff;border:none;cursor:pointer;font-size:13px;}
-.nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;padding:8px 0;box-shadow:0 -4px 12px rgba(0,0,0,0.15);}
+.nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;padding:8px 0;box-shadow:0 -4px 12px rgba(0,0,0,0.15);z-index:999;}
 .nav a{text-align:center;font-size:10px;color:#222;text-decoration:none;flex:1;}
 .dark-mode{background:#121212;color:#fff;}
 .dark-mode .card{background:#1e1e1e;color:#fff;}
 .dark-mode input{background:#222;color:#fff;border:1px solid #444;}
-.carousel{overflow:hidden;height:100px;border-radius:12px;}
-.carousel-inner{display:flex;flex-direction:column;animation:scrollReviews 25s linear infinite;}
+.carousel{overflow:hidden;height:120px;border-radius:12px;margin-bottom:12px;position:relative;}
+.carousel-inner{display:flex;width:300%;animation:slide 12s infinite;}
+.carousel-inner img{width:100%;flex-shrink:0;border-radius:12px;}
+@keyframes slide{0%,33%{transform:translateX(0);}33%,66%{transform:translateX(-33.33%);}66%,100%{transform:translateX(-66.66%);}}
+.review-box{overflow:hidden;height:100px;border-radius:12px;}
+.review-inner{display:flex;flex-direction:column;animation:scrollReviews 25s linear infinite;}
 @keyframes scrollReviews{0%{transform:translateY(0);}100%{transform:translateY(-100%);}}
 </style>
 </head>
@@ -35,14 +40,23 @@ input{width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #
 
 <header>
 <h1>SkillMint</h1>
-<p>Trusted Platform to Learn Skills & Earn Online</p>
+<p>Learn Skills & Earn Online – Trusted Platform</p>
 </header>
 
 <div class="container">
 
+<!-- Sliding Banner -->
+<div class="carousel">
+<div class="carousel-inner">
+<img src="https://picsum.photos/400/120?1">
+<img src="https://picsum.photos/400/120?2">
+<img src="https://picsum.photos/400/120?3">
+</div>
+</div>
+
 <div class="card">
 <h3>About SkillMint</h3>
-<p>SkillMint ek modern mobile app style platform hai jahan students real skills seekh kar online earning start karte hain. Simple app feel, clean cards, bottom navbar & tapable icons.</p>
+<p>SkillMint ek modern mobile app style platform hai jahan students real skills seekh kar online earning start karte hain. Clean cards, bottom navbar & tapable icons, real app feel.</p>
 </div>
 
 <div class="card icons">
@@ -71,7 +85,7 @@ input{width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #
 
 <div id="reviews" class="card">
 <h3>Students Reviews</h3>
-<div class="carousel"><div id="reviewBox" class="carousel-inner"></div></div>
+<div class="review-box"><div id="reviewBox" class="review-inner"></div></div>
 </div>
 
 <div id="buy" class="card">
@@ -116,6 +130,7 @@ input{width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid #
 </div>
 
 <script>
+// Scroll
 function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
 let selected="";
 function buyCourse(name){selected=name;selectedCourse.innerText="Selected Course: "+name;scrollToSection('buy');}
