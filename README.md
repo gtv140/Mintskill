@@ -1,8 +1,8 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SkillMint</title>
-
 <style>
 :root{
 --neon-red:#ff3c78;
@@ -12,8 +12,6 @@
 --dark-card:#1c1c1c;
 --white:#fff;
 }
-
-/* GENERAL */
 body{margin:0;font-family:system-ui,sans-serif;background:var(--dark-bg);color:var(--white);overflow-x:hidden;transition:all .3s;}
 .dark{background:#0f172a}
 
@@ -72,7 +70,6 @@ input,select{width:100%;padding:10px;border-radius:12px;border:1px solid var(--n
 .copy-btn{cursor:pointer;color:var(--neon-red);font-weight:bold;font-size:12px;margin-left:4px}
 </style>
 </head>
-
 <body>
 
 <div id="splash">SkillMint Loading...</div>
@@ -131,7 +128,7 @@ input,select{width:100%;padding:10px;border-radius:12px;border:1px solid var(--n
       <option value="EasyPaisa">EasyPaisa</option>
       <option value="Binance">Binance</option>
     </select>
-    <p>Send <b id="courseName">-</b> payment of <b id="coursePrice">-</b></p>
+    <p>Send <b>PKR 1555</b> for Complete SkillMint Course</p>
     <p>Number: <span id="payNumber">03705519562</span> <span class="copy-btn" onclick="copyNumber()">Copy</span></p>
     <input type="text" id="txnID" placeholder="Transaction ID">
     <input type="file" id="uploadProof">
@@ -168,7 +165,7 @@ input,select{width:100%;padding:10px;border-radius:12px;border:1px solid var(--n
 </div>
 
 <script>
-setTimeout(()=>splash.style.display="none",1200)
+setTimeout(()=>splash.style.display="none",1500)
 function toggleDark(){document.body.classList.toggle("dark")}
 
 /* LOGIN */
@@ -186,57 +183,80 @@ function saveLogin(){
 function loginSuccess(){
   loginScreen.style.display="none";dashboard.style.display="block";logoutBtn.style.display="inline-block"
   if(localStorage.getItem("lastSec")) openSec(localStorage.getItem("lastSec"))
-  loadDashboard();loadReviews();showWelcomeTips();loadCourses();loadChat()
+  loadDashboard();loadReviews();loadCourses();loadChat()
 }
-function logout(){localStorage.removeItem("login");localStorage.removeItem("lastSec");localStorage.removeItem("chatHistory");location.reload()}
+function logout(){localStorage.removeItem("login");localStorage.removeItem("lastSec");localStorage.removeItem("chatHistory");localStorage.removeItem("timer");location.reload()}
 
 /* SECTIONS */
 function openSec(id,el){document.querySelectorAll('.section').forEach(s=>s.style.display='none');document.getElementById(id).style.display='block';localStorage.setItem("lastSec",id)}
 
-/* DASHBOARD TIPS */
+/* DASHBOARD */
 function showWelcomeTips(){
-  let login=JSON.parse(localStorage.getItem("login"))
-  welcomeMsg.innerText="Welcome, "+login.username+"! 🎉"
   let tips=["Learn digital skills & earn online 💻","Boost your freelancing career 🚀","Practical projects included 📝","Start earning in PKR & USD 💰","AI tools & modern skills 🧠","Flexible learning anytime ⏰","Trusted by thousands of students 🌟"]
   tipsBox.innerHTML=""
   for(let i=0;i<3;i++){let t=tips[Math.floor(Math.random()*tips.length)];tipsBox.innerHTML+=`<p>• ${t}</p>`}
 }
+function loadDashboard(){
+  let login=JSON.parse(localStorage.getItem("login"))
+  welcomeMsg.innerText="Welcome, "+login.username+"! 🎉"
+  showWelcomeTips()
+  loadCourses()
+}
 
 /* COURSES */
 function loadCourses(){
-  let cDiv=document.getElementById("courses");cDiv.innerHTML=""
+  let cDiv=document.getElementById("courses"); cDiv.innerHTML=""
   let courses=[
-    {name:"Complete SkillMint Course",price:"PKR 9,999 / $35",img:"https://picsum.photos/200?5",link:"https://gtv140.github.io/SkillMint-complete-course-/"},
-    {name:"Coming Soon: Web Dev",price:"-",img:"https://picsum.photos/200?6",link:"#"},
-    {name:"Coming Soon: Graphic Design",price:"-",img:"https://picsum.photos/200?7",link:"#"},
-    {name:"Coming Soon: AI Tools",price:"-",img:"https://picsum.photos/200?8",link:"#"}
+    {name:"Complete SkillMint Course",price:"PKR 1555",img:"https://picsum.photos/200?5",desc:"Learn digital skills, freelancing & earn online easily.",link:"https://gtv140.github.io/SkillMint-complete-course-/"},
+    {name:"Web Development (Coming Soon)",price:"PKR 1555",img:"https://picsum.photos/200?6",desc:"HTML, CSS, JS basics and projects.",link:"#"},
+    {name:"Graphic Design (Coming Soon)",price:"PKR 1555",img:"https://picsum.photos/200?7",desc:"Photoshop, Canva & creative design.",link:"#"},
+    {name:"AI Tools (Coming Soon)",price:"PKR 1555",img:"https://picsum.photos/200?8",desc:"Learn ChatGPT, AI image generation & automation.",link:"#"}
   ]
   courses.forEach(c=>{
     let card=document.createElement("div")
     card.className="card course"
-    card.innerHTML=`<img src="${c.img}"><div><b>${c.name}</b><br><span class="price">${c.price}</span><br><button onclick="window.open('${c.link}','_blank')">Open</button></div>`
+    card.innerHTML=`<img src="${c.img}"><div><b>${c.name}</b><br><span class="price">${c.price}</span><br><p>${c.desc}</p><button onclick="window.open('${c.link}','_blank')">Open</button></div>`
     cDiv.appendChild(card)
   })
 }
 
 /* PAYMENT */
-const payNumbers={JazzCash:"03705519562",EasyPaisa:"03379827882",Binance:"0xBfB9E5b2baA8202850DfFb2CB1D739278b83f47F"}
+const payNumbers={JazzCash:"03705519562",EasyPaisa:"03379827882",Binance:"0xBfB9E5b2baA8202850DfFb2CB1D739278b83f47F"};
 function updatePayNumber(){let method=document.getElementById("payMethod").value;document.getElementById("payNumber").innerText=payNumbers[method]}
 function copyNumber(){navigator.clipboard.writeText(document.getElementById("payNumber").innerText);alert("Number copied!")}
-function startTimer(){let file=document.getElementById("uploadProof").files[0];let txn=document.getElementById("txnID").value;if(!file||!txn)return alert("Add Transaction ID and upload proof");let t=180;localStorage.setItem("timer",t);timer.innerText="Verifying payment: "+t+"s";let x=setInterval(()=>{t--;timer.innerText="Verifying payment: "+t+"s";localStorage.setItem("timer",t);if(t<=0){clearInterval(x);timer.innerText="✔ Course Unlocked";alert("Course link activated!");window.open("https://gtv140.github.io/SkillMint-complete-course-/","_blank");localStorage.removeItem("timer")}},1000)}
+function startTimer(){
+  let txn=document.getElementById("txnID").value;
+  let file=document.getElementById("uploadProof").files[0];
+  if(!txn||!file) return alert("Enter Transaction ID & Upload proof");
+  let t=parseInt(localStorage.getItem("timer"))||120;
+  localStorage.setItem("timer",t);
+  timer.innerText=`Verifying payment: ${t}s`;
+  let x=setInterval(()=>{
+    t--;
+    timer.innerText=`Verifying payment: ${t}s`;
+    localStorage.setItem("timer",t);
+    if(t<=0){
+      clearInterval(x);
+      localStorage.removeItem("timer");
+      alert("Payment verified! Course link unlocked ✅");
+      window.open("https://gtv140.github.io/SkillMint-complete-course-/","_blank");
+      timer.innerText="✔ Course Unlocked";
+    }
+  },1000)
+}
+
+/* Continue timer on reload */
+window.onload=function(){checkLogin();let t=parseInt(localStorage.getItem("timer"));if(t>0) startTimer()}
 
 /* REVIEWS */
-let revs=["SkillMint se earning start ho gayi 👍","बहुत बढ़िया platform hai","AI tools bohot helpful hain","میں satisfied ہوں","Real skills, real results","Freelancing confidence mila","Digital skills ne meri life change ki","SkillMint ki wajah se paisa earn ho raha hai","बहुत आसान और understandable","Courses clear aur practical hain"]
+let revs=["SkillMint se earning start ho gayi 👍","बहुत बढ़िया platform hai","AI tools bohot helpful hain","میں satisfied ہوں","Real skills, real results","Freelancing confidence mila","Digital skills ne meri life change ki","SkillMint ki wajah se paisa earn ho raha hai","बहुत आसान और understandable","Courses clear aur practical hain"];
 function loadReviews(){let revBox=document.getElementById("revBox");revBox.innerHTML="";revs.forEach(r=>{let img=Math.floor(Math.random()*70);revBox.innerHTML+=`<div class="review"><img src="https://i.pravatar.cc/100?img=${img}"><p>${r}</p></div>`});setInterval(()=>revBox.scrollLeft+=260,2500)}
 
 /* AI BOT */
-const apiKey = "YOUR_API_KEY_HERE"
+const apiKey="YOUR_API_KEY_HERE";
 function loadChat(){let history=JSON.parse(localStorage.getItem("chatHistory")||"[]");chat.innerHTML="";history.forEach(msg=>{chat.innerHTML+=`<p><b>${msg.user}:</b> ${msg.text}</p>`;chat.innerHTML+=`<p><b>Bot:</b> ${msg.bot}</p>`});chat.scrollTop=chat.scrollHeight}
 async function ask(){let qVal=q.value;if(!qVal)return;let history=JSON.parse(localStorage.getItem("chatHistory")||"[]");chat.innerHTML+=`<p><b>You:</b> ${qVal}</p>`;try{let res=await fetch("https://api.openai.com/v1/chat/completions",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+apiKey},body:JSON.stringify({model:"gpt-3.5-turbo",messages:[{role:"user",content:qVal}]})});let data=await res.json();let answer=data.choices[0].message.content;chat.innerHTML+=`<p><b>Bot:</b> ${answer}</p>`;history.push({user:qVal,bot:answer});localStorage.setItem("chatHistory",JSON.stringify(history));chat.scrollTop=chat.scrollHeight}catch(e){chat.innerHTML+=`<p><b>Bot:</b> Error fetching response</p>`}q.value=""}
 function clearChat(){if(confirm("Clear chat history?")){localStorage.removeItem("chatHistory");chat.innerHTML=""}}
-
-/* INIT */
-checkLogin()
 </script>
 </body>
 </html>
