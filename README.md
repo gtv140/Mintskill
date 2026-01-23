@@ -1,199 +1,71 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SkillMint Neon Dashboard</title>
+<title>SkillMint</title>
 
 <style>
-:root {
-  --neon-red: #ff3c78;
-  --neon-blue: #3c9eff;
-  --neon-purple: #b13eff;
-  --dark-bg: #0a0a0a;
-  --dark-card: #1c1c1c;
-  --white: #fff;
+:root{
+--neon-red:#ff3c78;
+--neon-blue:#3c9eff;
+--neon-purple:#b13eff;
+--dark-bg:#0a0a0a;
+--dark-card:#1c1c1c;
+--white:#fff;
 }
 
 /* GENERAL */
-body{
-  margin:0;
-  font-family:system-ui,sans-serif;
-  background:var(--dark-bg);
-  color:var(--white);
-  overflow-x:hidden;
-  transition:all .3s;
-}
+body{margin:0;font-family:system-ui,sans-serif;background:var(--dark-bg);color:var(--white);overflow-x:hidden;transition:all .3s;}
 .dark{background:#0f172a}
 
 /* SPLASH */
-#splash{
-  position:fixed;inset:0;
-  background:linear-gradient(135deg,var(--neon-purple),var(--neon-blue));
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:26px;z-index:9999;transition:all .3s;
-}
+#splash{position:fixed;inset:0;background:linear-gradient(135deg,var(--neon-purple),var(--neon-blue));display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px;z-index:9999;transition:all .3s;}
 
 /* HEADER */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:linear-gradient(135deg,var(--neon-red),var(--neon-blue));
-  color:#fff;
-  padding:16px;
-  border-radius:0 0 26px 26px;
-  box-shadow:0 4px 16px rgba(0,0,0,.3);
-  position:sticky;top:0;z-index:9;
-}
+.header{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,var(--neon-red),var(--neon-blue));color:#fff;padding:16px;border-radius:0 0 26px 26px;box-shadow:0 4px 16px rgba(0,0,0,.3);position:sticky;top:0;z-index:9;}
 .header h2{margin:0;font-size:22px}
 .header-buttons{display:flex;gap:8px}
-.header button{
-  background:#111;
-  color:var(--neon-red);
-  border:1px solid var(--neon-red);
-  padding:6px 12px;
-  border-radius:20px;
-  cursor:pointer;
-  transition:.3s;
-  font-weight:bold;
-}
-.header button:hover{
-  background:var(--neon-red);
-  color:#111;
-  box-shadow:0 0 12px var(--neon-red);
-}
+.header button{background:#111;color:var(--neon-red);border:1px solid var(--neon-red);padding:6px 12px;border-radius:20px;cursor:pointer;transition:.3s;font-weight:bold;}
+.header button:hover{background:var(--neon-red);color:#111;box-shadow:0 0 12px var(--neon-red);}
 
 /* DASHBOARD */
-.dashboard{
-  padding:16px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
-  gap:14px;
-}
-.icon{
-  background:var(--dark-card);
-  border-radius:18px;
-  text-align:center;
-  padding:12px;
-  box-shadow:0 0 10px rgba(255,255,255,.1);
-  cursor:pointer;
-  transition:all .3s;
-  border:1px solid var(--neon-blue);
-}
-.icon:hover{
-  transform:translateY(-4px);
-  box-shadow:0 0 12px var(--neon-blue),0 0 20px var(--neon-red);
-}
+.dashboard{padding:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:14px;}
+.icon{background:var(--dark-card);border-radius:18px;text-align:center;padding:12px;box-shadow:0 0 10px rgba(255,255,255,.1);cursor:pointer;transition:all .3s;border:1px solid var(--neon-blue);animation:float 2s infinite alternate;}
+.icon:hover{transform:translateY(-6px) scale(1.05);box-shadow:0 0 12px var(--neon-blue),0 0 20px var(--neon-red);}
 .icon img{width:44px}
-.icon span{font-size:11px;display:block;margin-top:6px;color:var(--white);font-weight:bold}
+.icon span{font-size:11px;display:block;margin-top:6px;color:var(--white);font-weight:bold;}
+@keyframes float{0%{transform:translateY(0);}100%{transform:translateY(-4px);}}
 
 /* USERNAME & TIPS BOX */
-#welcomeMsg{
-  font-size:16px;
-  font-weight:bold;
-  margin-bottom:12px;
-  background:var(--dark-card);
-  padding:10px;
-  border-radius:12px;
-  border:1px solid var(--neon-red);
-  text-align:center;
-  box-shadow:0 0 8px var(--neon-red);
-}
-#tipsBox{
-  background:var(--dark-card);
-  border-radius:16px;
-  padding:12px;
-  margin-bottom:12px;
-  box-shadow:0 0 12px var(--neon-blue);
-  color:var(--neon-blue);
-}
+#welcomeMsg{font-size:16px;font-weight:bold;margin-bottom:12px;background:var(--dark-card);padding:10px;border-radius:12px;border:1px solid var(--neon-red);text-align:center;box-shadow:0 0 8px var(--neon-red);}
+#tipsBox{background:var(--dark-card);border-radius:16px;padding:12px;margin-bottom:12px;box-shadow:0 0 12px var(--neon-blue);color:var(--neon-blue);}
 
 /* SECTIONS */
-.section{padding:14px;display:none;transition:all .3s}
-.card{
-  background:var(--dark-card);
-  border-radius:20px;
-  padding:16px;
-  margin-bottom:14px;
-  box-shadow:0 0 12px var(--neon-purple);
-  transition:all .3s;
-}
+.section{padding:14px;display:none;transition:all .3s;}
+.card{background:var(--dark-card);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 0 12px var(--neon-purple);transition:all .3s;}
 
 /* COURSES */
-.course{
-  display:flex;gap:12px;align-items:center;transition:all .3s;
-}
+.course{display:flex;gap:12px;align-items:center;transition:all .3s;}
 .course img{width:90px;height:90px;border-radius:14px;object-fit:cover}
 .price{font-weight:bold;color:var(--neon-red)}
 
 /* BUTTONS */
-button{
-  width:100%;
-  border:none;
-  padding:10px;
-  border-radius:14px;
-  background:linear-gradient(135deg,var(--neon-red),var(--neon-blue));
-  color:#fff;
-  font-size:14px;
-  margin-top:8px;
-  cursor:pointer;
-  transition:.3s;
-  font-weight:bold;
-}
+button{width:100%;border:none;padding:10px;border-radius:14px;background:linear-gradient(135deg,var(--neon-red),var(--neon-blue));color:#fff;font-size:14px;margin-top:8px;cursor:pointer;transition:.3s;font-weight:bold;}
 button:hover{opacity:.85;box-shadow:0 0 12px var(--neon-red)}
 
 /* REVIEWS SLIDER */
-.slider{
-  display:flex;
-  gap:12px;
-  overflow-x:auto;
-  scroll-behavior:smooth;
-  padding-bottom:8px;
-}
-.review{
-  min-width:240px;
-  background:var(--dark-card);
-  border-radius:16px;
-  padding:12px;
-  box-shadow:0 0 12px var(--neon-blue);
-}
+.slider{display:flex;gap:12px;overflow-x:auto;scroll-behavior:smooth;padding-bottom:8px;}
+.review{min-width:240px;background:var(--dark-card);border-radius:16px;padding:12px;box-shadow:0 0 12px var(--neon-blue);}
 .review img{width:40px;height:40px;border-radius:50%}
 .review b{font-size:13px}
 .review p{margin:4px 0 0;font-size:12px;color:var(--white)}
 
 /* LOGIN */
-input,select{
-  width:100%;
-  padding:10px;
-  border-radius:12px;
-  border:1px solid var(--neon-red);
-  margin-top:8px;
-  background:#111;
-  color:#fff;
-}
+input,select{width:100%;padding:10px;border-radius:12px;border:1px solid var(--neon-red);margin-top:8px;background:#111;color:#fff;}
 
 /* BOTTOM NAV */
-.nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:#111;
-  display:flex;
-  justify-content:space-around;
-  box-shadow:0 -4px 12px rgba(255,0,0,.3);
-}
-.nav div{
-  text-align:center;
-  font-size:11px;
-  padding:6px;
-  cursor:pointer;
-  color:var(--neon-blue);
-  font-weight:bold;
-  transition:.3s;
-}
-.nav div:hover{
-  color:var(--neon-red);
-}
+.nav{position:fixed;bottom:0;left:0;width:100%;background:#111;display:flex;justify-content:space-around;box-shadow:0 -4px 12px rgba(255,0,0,.3);}
+.nav div{text-align:center;font-size:11px;padding:6px;cursor:pointer;color:var(--neon-blue);font-weight:bold;transition:.3s;}
+.nav div:hover{color:var(--neon-red);}
 
 /* SCROLLBAR HIDE */
 .slider::-webkit-scrollbar{display:none}
@@ -213,7 +85,7 @@ input,select{
   </div>
 </div>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
 <div id="loginScreen" class="section">
   <div class="card">
     <h3>Login / Signup</h3>
@@ -227,8 +99,28 @@ input,select{
 <div id="dashboard" class="section">
   <div id="welcomeMsg"></div>
   <div id="tipsBox"></div>
-  <div class="dashboard" id="dashCards"></div>
+  <div class="dashboard" id="dashCards">
+    <div class="icon" onclick="openSec('courses',this)">
+      <img src="https://img.icons8.com/fluency/96/online-course.png">
+      <span>Courses</span>
+    </div>
+    <div class="icon" onclick="openSec('reviews',this)">
+      <img src="https://img.icons8.com/fluency/96/group.png">
+      <span>Reviews</span>
+    </div>
+    <div class="icon" onclick="openSec('payment',this)">
+      <img src="https://img.icons8.com/fluency/96/credit-card.png">
+      <span>Payment</span>
+    </div>
+    <div class="icon" onclick="openSec('ai',this)">
+      <img src="https://img.icons8.com/fluency/96/robot.png">
+      <span>AI Bot</span>
+    </div>
+  </div>
 </div>
+
+<!-- COURSES -->
+<div id="courses" class="section card"></div>
 
 <!-- PAYMENT -->
 <div id="payment" class="section">
@@ -240,7 +132,7 @@ input,select{
       <option value="Binance">Binance</option>
     </select>
     <p>Send <b id="courseName">-</b> payment of <b id="coursePrice">-</b></p>
-    <p>Number: <span id="payNumber">03001234567</span> <span class="copy-btn" onclick="copyNumber()">Copy</span></p>
+    <p>Number: <span id="payNumber">03705519562</span> <span class="copy-btn" onclick="copyNumber()">Copy</span></p>
     <input type="text" id="txnID" placeholder="Transaction ID">
     <input type="file" id="uploadProof">
     <button onclick="startTimer()">Submit Proof</button>
@@ -294,39 +186,14 @@ function saveLogin(){
 function loginSuccess(){
   loginScreen.style.display="none";dashboard.style.display="block";logoutBtn.style.display="inline-block"
   if(localStorage.getItem("lastSec")) openSec(localStorage.getItem("lastSec"))
-  loadDashboard();loadReviews();showWelcomeTips();loadChat()
+  loadDashboard();loadReviews();showWelcomeTips();loadCourses();loadChat()
 }
-function logout(){
-  localStorage.removeItem("login");localStorage.removeItem("lastSec");localStorage.removeItem("course");localStorage.removeItem("chatHistory");location.reload()
-}
+function logout(){localStorage.removeItem("login");localStorage.removeItem("lastSec");localStorage.removeItem("chatHistory");location.reload()}
 
 /* SECTIONS */
-function openSec(id){
-  if(!localStorage.getItem("login")) return alert("Please login first!")
-  document.querySelectorAll('.section').forEach(s=>s.style.display="none")
-  document.getElementById(id).style.display="block"
-  localStorage.setItem("lastSec",id)
-}
+function openSec(id,el){document.querySelectorAll('.section').forEach(s=>s.style.display='none');document.getElementById(id).style.display='block';localStorage.setItem("lastSec",id)}
 
-/* DASHBOARD */
-function loadDashboard(){
-  let dash=document.getElementById("dashCards")
-  dash.innerHTML=""
-  let courses=[
-    {name:"Digital Marketing",price:"PKR 9,999 / $35",img:"https://picsum.photos/200?1"},
-    {name:"Web Development",price:"PKR 14,999 / $55",img:"https://picsum.photos/200?2"},
-    {name:"AI Tools + Freelancing",price:"PKR 12,999 / $45",img:"https://picsum.photos/200?3"},
-    {name:"Graphic Designing",price:"PKR 8,999 / $32",img:"https://picsum.photos/200?4"}
-  ]
-  courses.forEach(c=>{
-    let card=document.createElement("div")
-    card.className="card course"
-    card.innerHTML=`<img src="${c.img}"><div><b>${c.name}</b><br><span class="price">${c.price}</span><button onclick="selectCourse('${c.name}','${c.price}')">Buy</button></div>`
-    dash.appendChild(card)
-  })
-}
-
-/* TIPS */
+/* DASHBOARD TIPS */
 function showWelcomeTips(){
   let login=JSON.parse(localStorage.getItem("login"))
   welcomeMsg.innerText="Welcome, "+login.username+"! 🎉"
@@ -335,9 +202,25 @@ function showWelcomeTips(){
   for(let i=0;i<3;i++){let t=tips[Math.floor(Math.random()*tips.length)];tipsBox.innerHTML+=`<p>• ${t}</p>`}
 }
 
-/* COURSE PAYMENT */
-function selectCourse(name,price){localStorage.setItem("course",name);document.getElementById("courseName").innerText=name;document.getElementById("coursePrice").innerText=price;openSec("payment")}
-const payNumbers={JazzCash:"03001234567",EasyPaisa:"03101234567",Binance:"bc1qxyz..."}
+/* COURSES */
+function loadCourses(){
+  let cDiv=document.getElementById("courses");cDiv.innerHTML=""
+  let courses=[
+    {name:"Complete SkillMint Course",price:"PKR 9,999 / $35",img:"https://picsum.photos/200?5",link:"https://gtv140.github.io/SkillMint-complete-course-/"},
+    {name:"Coming Soon: Web Dev",price:"-",img:"https://picsum.photos/200?6",link:"#"},
+    {name:"Coming Soon: Graphic Design",price:"-",img:"https://picsum.photos/200?7",link:"#"},
+    {name:"Coming Soon: AI Tools",price:"-",img:"https://picsum.photos/200?8",link:"#"}
+  ]
+  courses.forEach(c=>{
+    let card=document.createElement("div")
+    card.className="card course"
+    card.innerHTML=`<img src="${c.img}"><div><b>${c.name}</b><br><span class="price">${c.price}</span><br><button onclick="window.open('${c.link}','_blank')">Open</button></div>`
+    cDiv.appendChild(card)
+  })
+}
+
+/* PAYMENT */
+const payNumbers={JazzCash:"03705519562",EasyPaisa:"03379827882",Binance:"0xBfB9E5b2baA8202850DfFb2CB1D739278b83f47F"}
 function updatePayNumber(){let method=document.getElementById("payMethod").value;document.getElementById("payNumber").innerText=payNumbers[method]}
 function copyNumber(){navigator.clipboard.writeText(document.getElementById("payNumber").innerText);alert("Number copied!")}
 function startTimer(){let file=document.getElementById("uploadProof").files[0];let txn=document.getElementById("txnID").value;if(!file||!txn)return alert("Add Transaction ID and upload proof");let t=180;localStorage.setItem("timer",t);timer.innerText="Verifying payment: "+t+"s";let x=setInterval(()=>{t--;timer.innerText="Verifying payment: "+t+"s";localStorage.setItem("timer",t);if(t<=0){clearInterval(x);timer.innerText="✔ Course Unlocked";alert("Course link activated!");window.open("https://gtv140.github.io/SkillMint-complete-course-/","_blank");localStorage.removeItem("timer")}},1000)}
@@ -355,6 +238,5 @@ function clearChat(){if(confirm("Clear chat history?")){localStorage.removeItem(
 /* INIT */
 checkLogin()
 </script>
-
 </body>
 </html>
