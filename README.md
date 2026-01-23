@@ -19,7 +19,6 @@ body.dark{
  --card:#020617;
  --text:#e5e7eb;
 }
-
 *{box-sizing:border-box}
 body{
  margin:0;
@@ -37,11 +36,7 @@ body{
  padding:22px;
  text-align:center;
 }
-.header img{
- width:100%;
- border-radius:14px;
- margin-top:10px;
-}
+.header img{width:100%;border-radius:14px;margin-top:10px}
 
 /* SECTIONS */
 .section{padding:18px}
@@ -100,6 +95,15 @@ h2{text-align:center}
  box-shadow:0 4px 14px rgba(0,0,0,.1);
 }
 
+/* INPUT */
+input{
+ width:100%;
+ padding:12px;
+ border-radius:12px;
+ border:1px solid #ccc;
+ margin-top:6px;
+}
+
 /* NAV */
 .nav{
  position:fixed;
@@ -124,7 +128,6 @@ h2{text-align:center}
  cursor:pointer;
 }
 
-/* MOBILE */
 @media(min-width:768px){
  .cards{flex-direction:row;flex-wrap:wrap}
  .card{width:48%}
@@ -148,8 +151,8 @@ h2{text-align:center}
  <h2>About SkillMint</h2>
  <p style="text-align:center;max-width:650px;margin:auto">
  SkillMint ek trusted online learning platform hai jo beginners ko
- **YouTube, Freelancing, Affiliate Marketing aur Social Media**
- se earning sikhata hai — step by step, simple aur practical tareeke se.
+ YouTube, Freelancing, Affiliate Marketing aur Social Media se
+ earning sikhata hai — step by step aur practical tareeke se.
  </p>
 
  <p id="users" style="text-align:center;color:#16a34a;font-weight:bold"></p>
@@ -168,20 +171,66 @@ h2{text-align:center}
 
 <!-- COURSES -->
 <div class="section" id="courses">
- <h2>Courses</h2>
+ <h2>Our Courses</h2>
  <div class="cards">
-  <div class="card"><img src="https://picsum.photos/seed/1/400/250"><h3>YouTube Earning</h3></div>
-  <div class="card"><img src="https://picsum.photos/seed/2/400/250"><h3>Freelancing</h3></div>
-  <div class="card"><img src="https://picsum.photos/seed/3/400/250"><h3>Affiliate Marketing</h3></div>
-  <div class="card"><img src="https://picsum.photos/seed/4/400/250"><h3>Social Media Growth</h3></div>
+
+  <div class="card">
+   <img src="https://picsum.photos/seed/yt/400/250">
+   <h3>YouTube Earning</h3>
+   <p>Complete YouTube monetization roadmap.</p>
+   <button class="btn" onclick="buyCourse('YouTube Earning')">Buy Course</button>
+  </div>
+
+  <div class="card">
+   <img src="https://picsum.photos/seed/free/400/250">
+   <h3>Freelancing</h3>
+   <p>Fiverr & Upwork beginner guide.</p>
+   <button class="btn" onclick="buyCourse('Freelancing')">Buy Course</button>
+  </div>
+
+  <div class="card">
+   <img src="https://picsum.photos/seed/aff/400/250">
+   <h3>Affiliate Marketing</h3>
+   <p>Earn commission step by step.</p>
+   <button class="btn" onclick="buyCourse('Affiliate Marketing')">Buy Course</button>
+  </div>
+
+  <div class="card">
+   <img src="https://picsum.photos/seed/social/400/250">
+   <h3>Social Media Growth</h3>
+   <p>Instagram & Facebook organic growth.</p>
+   <button class="btn" onclick="buyCourse('Social Media Growth')">Buy Course</button>
+  </div>
+
  </div>
 </div>
 
+<!-- BUY SECTION -->
+<div class="section" id="buy">
+ <h2>Buy Course</h2>
+
+ <p id="selectedCourse" style="font-weight:bold"></p>
+
+ <label>Course Price</label>
+ <input readonly value="500 PKR">
+
+ <label>Deposit Number</label>
+ <input id="number" readonly placeholder="Select payment method">
+
+ <button class="btn" onclick="pay('jazz')">JazzCash</button>
+ <button class="btn" onclick="pay('easy')">EasyPaisa</button>
+ <button class="btn" onclick="pay('binance')">Binance</button>
+
+ <label>Upload Payment Proof</label>
+ <input type="file" id="proof">
+
+ <p id="verifyStatus"></p>
+
+ <button class="btn green" id="openCourse" disabled>Open Course</button>
+</div>
+
 <!-- FLOAT CHAT -->
-<a href="https://wa.me/923379827882" style="
-position:fixed;right:16px;bottom:90px;
-background:#22c55e;color:#fff;
-padding:14px;border-radius:50%">💬</a>
+<a href="https://wa.me/923379827882" style="position:fixed;right:16px;bottom:90px;background:#22c55e;color:#fff;padding:14px;border-radius:50%">💬</a>
 
 <!-- NAV -->
 <div class="nav">
@@ -193,39 +242,78 @@ padding:14px;border-radius:50%">💬</a>
 </div>
 
 <script>
-// DARK MODE
+/* DARK MODE */
 function toggleMode(){
  document.body.classList.toggle("dark");
  localStorage.setItem("mode",document.body.classList.contains("dark"));
 }
 if(localStorage.getItem("mode")==="true") document.body.classList.add("dark");
 
-// ICONS
+/* ICONS */
 function showIcons(){
  document.querySelectorAll(".icon").forEach(i=>i.style.display="block");
 }
 
-// REVIEWS
+/* REVIEWS */
 const reviews=[
-"SkillMint se earning start ho gai",
-"Beginner friendly aur trusted",
-"Simple steps, real support",
-"Courses worth it hain",
-"Best platform for beginners"
+"Trusted platform",
+"Beginner friendly",
+"Real earning guidance",
+"SkillMint is legit",
+"Support is very good"
 ];
 let r=document.getElementById("reviews"),i=0;
 setInterval(()=>{
  r.innerHTML=`<div class="review">${reviews[i%reviews.length]}</div>`;
  i++;
-},3500);
+},3000);
 
-// ACTIVE USERS
+/* USERS */
 setInterval(()=>{
  document.getElementById("users").innerText=
  "Active Users: "+(100+Math.floor(Math.random()*200));
 },2500);
 
-// SCROLL
+/* BUY FLOW */
+let selected="";
+function buyCourse(name){
+ selected=name;
+ selectedCourse.innerText="Selected Course: "+name;
+ buy.scrollIntoView({behavior:"smooth"});
+}
+
+function pay(method){
+ let num="";
+ if(method==="jazz") num="03705519562";
+ if(method==="easy") num="03379827882";
+ if(method==="binance") num="0xBfB9E5b2baA8202850DfFb2CB1D739278b83f47F";
+
+ number.value=num;
+ navigator.clipboard.writeText(num);
+ localStorage.setItem("timer",300);
+ startTimer();
+}
+
+function startTimer(){
+ let t=localStorage.getItem("timer")||300;
+ let int=setInterval(()=>{
+  if(t<=0){
+   clearInterval(int);
+   verifyStatus.innerText="Payment Verified ✔";
+   openCourse.disabled=false;
+   localStorage.removeItem("timer");
+  }else{
+   verifyStatus.innerText="Verifying... "+t+"s";
+   t--;
+   localStorage.setItem("timer",t);
+  }
+ },1000);
+}
+
+proof.onchange=startTimer;
+openCourse.onclick=()=>alert("Course Opened: "+selected);
+
+/* SCROLL */
 function go(id){
  document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
