@@ -3,37 +3,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SkillMint – Learn & Earn Skills</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#222;padding-bottom:120px;scroll-behavior:smooth;}
-header{background:linear-gradient(135deg,#0f9d58,#0b7d46);color:#fff;padding:18px;text-align:center;}
-header h1{margin:0;font-size:22px;}
-header p{margin:4px 0;font-size:12px;}
+body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f2f5f9;color:#222;padding-bottom:70px;scroll-behavior:smooth;}
+header{background:linear-gradient(135deg,#0f9d58,#0b7d46);color:#fff;padding:20px;text-align:center;border-bottom-left-radius:20px;border-bottom-right-radius:20px;}
+header h1{margin:0;font-size:24px;}
+header p{margin:5px 0;font-size:13px;}
 .container{padding:12px;}
-.card{background:#fff;border-radius:12px;padding:12px;margin-bottom:12px;box-shadow:0 4px 12px rgba(0,0,0,0.08);}
-.icons{display:flex;flex-wrap:wrap;justify-content:space-around;text-align:center;margin-bottom:10px;}
+.card{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);transition:transform .2s;}
+.card:hover{transform:translateY(-2px);}
+.icons{display:flex;flex-wrap:wrap;justify-content:space-around;text-align:center;margin-bottom:12px;}
 .icon{cursor:pointer;font-size:12px;width:22%;margin-bottom:10px;transition:transform .2s;}
-.icon img{width:36px;margin-bottom:4px;}
+.icon img{width:40px;margin-bottom:4px;}
 .icon:hover{transform:scale(1.1);}
-.hidden{display:none;}
-button{background:#0f9d58;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:13px;margin-top:4px;}
-button:hover{opacity:.9;}
-.course{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap;}
-.course img{width:70px;border-radius:6px;}
-input{width:100%;padding:8px;margin-top:4px;border-radius:6px;border:1px solid #ccc;}
-#verifyStatus{font-size:12px;margin-top:4px;color:green;}
-#chatbot{position:fixed;bottom:10px;right:10px;width:90%;max-width:320px;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.3);display:flex;flex-direction:column;height:380px;}
-#chatHeader{background:#0f9d58;color:#fff;padding:10px;text-align:center;cursor:pointer;font-size:14px;}
+button{background:linear-gradient(135deg,#0f9d58,#0b7d46);color:#fff;border:none;padding:10px 14px;border-radius:10px;cursor:pointer;font-size:14px;margin-top:6px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+button:hover{opacity:.9}
+.course{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+.course img{width:80px;border-radius:10px;}
+input{width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid #ccc;}
+#verifyStatus{font-size:12px;margin-top:5px;color:green;}
+#chatbot{position:fixed;bottom:70px;right:15px;width:90%;max-width:300px;background:#fff;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.3);display:flex;flex-direction:column;height:380px;}
+#chatHeader{background:#0f9d58;color:#fff;padding:10px;text-align:center;cursor:pointer;font-size:14px;border-top-left-radius:16px;border-top-right-radius:16px;}
 #chatBody{flex:1;padding:8px;overflow-y:auto;font-size:13px;}
 #chatInput{display:flex;border-top:1px solid #ccc;}
 #chatInput input{flex:1;padding:6px;border:none;font-size:13px;}
 #chatInput button{padding:6px;background:#0f9d58;color:#fff;border:none;cursor:pointer;font-size:13px;}
-.nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;padding:8px 0;box-shadow:0 -3px 10px rgba(0,0,0,0.15);}
-.nav a{text-align:center;font-size:10px;color:#222;text-decoration:none;flex:1;}
-.review{margin-bottom:4px;}
-.carousel{overflow:hidden;height:90px;}
-.carousel-inner{display:flex;flex-direction:column;animation:scrollReviews 20s linear infinite;}
+.nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;padding:8px 0;box-shadow:0 -4px 12px rgba(0,0,0,0.15);}
+.nav a{text-align:center;font-size:11px;color:#222;text-decoration:none;flex:1;}
+.review{margin-bottom:5px;}
+.carousel{overflow:hidden;height:100px;border-radius:12px;}
+.carousel-inner{display:flex;flex-direction:column;animation:scrollReviews 25s linear infinite;}
 @keyframes scrollReviews{0%{transform:translateY(0);}100%{transform:translateY(-100%);}}
 .dark-mode{background:#121212;color:#fff;}
 .dark-mode .card{background:#1e1e1e;color:#fff;}
+.dark-mode input{background:#222;color:#fff;border:1px solid #444;}
 </style>
 </head>
 <body>
@@ -47,7 +48,7 @@ input{width:100%;padding:8px;margin-top:4px;border-radius:6px;border:1px solid #
 
 <div class="card">
 <h3>About SkillMint</h3>
-<p>SkillMint ek modern online learning platform hai jahan students real skills seekh kar online earning start karte hain. Beginner se advanced level courses, step-by-step practical training aur trusted support available hai.</p>
+<p>SkillMint ek modern online learning platform hai jahan students real skills seekh kar online earning start karte hain. Beginner se advanced level courses, step-by-step practical training aur trusted support available hai. App style layout feel de raha hai, dashboard look with clean design.</p>
 </div>
 
 <div class="card icons">
@@ -136,7 +137,7 @@ input{width:100%;padding:8px;margin-top:4px;border-radius:6px;border:1px solid #
 </div>
 
 <script>
-// SCROLL TO SECTION
+// SCROLL
 function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
 
 // BUY FLOW
@@ -160,7 +161,7 @@ else{verifyStatus.innerText="Verifying... "+t+"s";t--;localStorage.setItem("time
 proof.onchange=startTimer;
 openCourse.onclick=()=>alert("Course Opened: "+selected);
 
-// REVIEWS CAROUSEL
+// REVIEWS
 const reviews=["Best platform 👍","SkillMint changed my life ❤️","Courses are very practical","Highly trusted website","I earned my first income","Support team is helpful","Easy to use on mobile","Worth every rupee","Professional learning","Recommended to all students"];
 function loadReviews(){let box=document.getElementById("reviewBox");box.innerHTML="";for(let i=0;i<25;i++){let r=reviews[Math.floor(Math.random()*reviews.length)];box.innerHTML+=`<div class="review">⭐ ${r}</div>`;}}
 loadReviews();
